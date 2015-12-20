@@ -15,11 +15,16 @@ module.exports = function(defaults) {
     }
   });
 
-  var fontAssets = new Funnel('bower_components/Materialize/font/roboto', {
-   srcDir: '/',
-   include: ['**/*.woff','**/*.woff2','**/*.ttf'],
-   destDir: '/font/roboto'
- });
+  // var fontAssets = new Funnel('bower_components/Materialize/font/roboto', {
+  //   srcDir: '/',
+  //   include: ['**/*.woff', '**/*.woff2', '**/*.ttf'],
+  //   destDir: '/assets/font/roboto'
+  // });
+  // var imageAssets = new Funnel('vendor/images', {
+  //   srcDir: '/',
+  //   include: ['**/*.png', '**/*.jpg', '**/*.gif'],
+  //   destDir: '/assets/images'
+  // });
 
   //Import Materialize JS
   app.import(app.bowerDirectory + '/Materialize/dist/js/materialize.min.js');
@@ -37,5 +42,5 @@ module.exports = function(defaults) {
   // please specify an object with the list of modules as keys
   // along with the exports of each module as its value.
 
-  return app.toTree([fontAssets]);
+  return app.toTree();
 };
