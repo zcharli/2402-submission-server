@@ -3,9 +3,19 @@
 module.exports = function(environment) {
   var ENV = {
     modulePrefix: 'submission-server-frontend',
+    podModulePrefix: 'submission-server-frontend/pods',
     environment: environment,
     baseURL: '/',
     locationType: 'auto',
+    contentSecurityPolicy: {
+      'default-src': "'self' *",
+      'script-src': "'self' 'unsafe-inline' 'unsafe-eval' *",
+      'font-src': "'self' *",
+      'connect-src': "'self'",
+      'img-src': "'self' *",
+      'style-src': "'self' 'unsafe-inline' *",
+      'frame-src': "'self' *"
+    },
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build

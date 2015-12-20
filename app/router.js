@@ -6,6 +6,10 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
+  this.route('ranking', function() {});
+  this.route('submission', function() {
+    this.route('assignment',{path:'assignment/:assignmentNumber'});
+  });
 });
 
 export default Router;

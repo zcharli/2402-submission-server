@@ -1,11 +1,28 @@
 /*jshint node:true*/
 /* global require, module */
 var EmberApp = require('ember-cli/lib/broccoli/ember-app');
+var Funnel = require('broccoli-funnel');
 
 module.exports = function(defaults) {
   var app = new EmberApp(defaults, {
     // Add options here
+    outputPaths: {
+      app: {
+        css: {
+          'app': '/assets/submission-server-frontend.css'
+        }
+      }
+    }
   });
+
+  var fontAssets = new Funnel('bower_components/Materialize/font/roboto', {
+   srcDir: '/',
+   include: ['**/*.woff','**/*.woff2','**/*.ttf'],
+   destDir: '/font/roboto'
+ });
+
+  //Import Materialize JS
+  app.import(app.bowerDirectory + '/Materialize/dist/js/materialize.min.js');
 
   // Use `app.import` to add additional libraries to the generated
   // output files.
@@ -20,5 +37,5 @@ module.exports = function(defaults) {
   // please specify an object with the list of modules as keys
   // along with the exports of each module as its value.
 
-  return app.toTree();
+  return app.toTree([fontAssets]);
 };
