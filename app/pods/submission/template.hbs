@@ -1,2 +1,19 @@
-Submission Page
-{{outlet}}
+<div class="submission-wrapper">
+  <div class="submission-sidebar hide-on-small-only">
+    <div class="assignment-header">
+      Assignments
+    </div>
+    <ul class="assignment-list">
+      <li>{{#link-to 'submission.assignment' 1}}Problem 1{{/link-to}}</li>
+      <li>{{#link-to 'submission.assignment' 2}}Problem 2{{/link-to}}</li>
+      <li>{{#link-to 'submission.assignment' 3}}Problem 3{{/link-to}}</li>
+      <li>{{#link-to 'submission.assignment' 4}}Problem 4{{/link-to}}</li>
+      <li>{{#link-to 'submission.assignment' 5}}Problem 5{{/link-to}}</li>
+    </ul>
+  </div>
+
+  <div class="submission-content">
+  {{!-- This out let is for everything on the right side of the page --}}
+    {{outlet}}
+  </div>
+</div>

@@ -4,12 +4,14 @@ nav.top-bar {
 }
 
 #carleton-logo {
-	padding-left: 5px; 
+	padding-left: 20px; 
 }
 
 #ds-algo-title{
 	padding-top:4px;
-	padding-left: 5px;
+	padding-left: 60px;
+  font-weight: lighter;
+  font-size: x-large;
 }
 
 nav li a.active {
@@ -18,17 +20,17 @@ nav li a.active {
 }
 
 nav ul#nav-mobile {
-	position: relative;
-  	top: -10px;
+  position: relative;
+  top: -10px;
 }
 
 nav li a {
 	height: 90px;
-    letter-spacing: .2rem;
-    text-decoration: none;
-    color: #fff;
-    transition: all 0.2s ease-out;
-    padding-top: 12px;
-  	font-weight: lighter;
-  	font-size: large;
+  letter-spacing: .2rem;
+  text-decoration: none;
+  color: #fff;
+  transition: all 0.2s ease-out;
+  padding-top: 16px;
+	font-weight: lighter;
+	font-size: large;
 }

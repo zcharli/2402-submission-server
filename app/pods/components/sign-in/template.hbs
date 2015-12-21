@@ -1,0 +1,45 @@
+<div class="_header card">
+  <div class="container">
+    <div class="valign-wrapper">
+      <h2 class="valign">Welcome to the <b>COMP2402</b> <br> homework submission server</h2>
+    </div>
+    <div class="_sign-in-form">
+      
+      <div class="row">
+
+        <form class="col s12" {{action "submitSecretKey" on="submit"}}>
+          <div class="row">
+              <div class="input-field col s6 offset-s2">
+                <i class="material-icons prefix">account_circle</i>
+                {{input type="text" id="input-secret-key" class="validate" value=userInputedSecretKey tabindex="1" size="60" name="my-secret-submission-key"}}
+                <label for="input-secret-key" data-error="Wrong key">Secret Key</label>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="input-field col s4 offset-s2">
+                {{#link-to "account.new" class="btn waves-effect waves-light"}}Don't have a key? <i class="material-icons right">vpn_key</i>{{/link-to}}
+              </div>
+              <div class="input-field col s4">
+                <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                  <i class="material-icons right">send</i>
+                </button>
+              </div>
+          </div>
+        </form>
+    
+      </div>
+
+    </div>
+  </div>
+</div>
+<br>
+<div class="container">
+  <ul class="collection with-header">
+    <li class="collection-header"><h4>Announcement</h4></li>
+    <li class="collection-item">New prototype submission server up!</li>
+    <li class="collection-item">Modernized the look.</li>
+    <li class="collection-item">First Assignment due tomorrow.</li>
+    <li class="collection-item">The last announcement was not a joke!</li>
+  </ul>
+</div>

@@ -1,12 +1,20 @@
+
+// Variables and Settings
+@import "./_fonts.scss";
+@import "./_base.scss";
 @import "./_variables.scss";
+
 // Import the Materialize CSS Libary
 @import '../../bower_components/materialize/sass/materialize';
 
-// Variables and Settings
 
-@import "./_fonts.scss";
-@import "./_base.scss";
 
 // Component Styles
 @import "../../../app/pods/components/nav-bar/styles";
+@import "../../../app/pods/components/sign-in/styles";
+@import "../../../app/pods/components/sign-up/styles";
+
+// Page route styles
+@import "../../../app/pods/submission/styles";
+
 

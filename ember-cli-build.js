@@ -27,7 +27,7 @@ module.exports = function(defaults) {
   // });
 
   //Import Materialize JS
-  app.import(app.bowerDirectory + '/Materialize/dist/js/materialize.min.js');
+  app.import(app.bowerDirectory + '/materialize/dist/js/materialize.min.js');
 
   // Use `app.import` to add additional libraries to the generated
   // output files.

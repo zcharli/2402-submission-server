@@ -1,0 +1,59 @@
+@import '../../styles/variables';
+
+.layout {
+  padding-top:30px;
+  height: 100%;
+}
+
+.submission-sidebar-text {
+  // Text css
+  text-transform: uppercase;
+  color:whitesmoke !important;
+  letter-spacing: 1.5px;
+}
+
+.submission-sidebar {
+  @extend .layout;
+  @extend .submission-sidebar-text;
+
+  padding-top: 40px;
+  width:220px; 
+  position:fixed;
+  background: $side-bar-bg;
+  top: 90px;
+  padding-left:20px;
+
+  .assignment-header {
+    @extend .submission-sidebar-text;
+    font-weight: lighter;
+    font-size: x-large;
+  }
+
+  ul.assignment-list {
+    list-style-type: none;
+    padding-left: 10px;
+
+    li {
+      padding:10px;
+    }
+    li a {
+      color:whitesmoke !important;
+      font-weight: lighter;
+      font-size: large;
+    }
+  }
+}
+
+.submission-content {
+  @extend .layout;
+  width: 100%;
+  margin-left: 240px;
+  font-weight: lighter;
+  font-size: x-large;
+}
+
+.submission-wrapper {
+  overflow: hidden; 
+  width: 100%;
+  height: 100%;
+}

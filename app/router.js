@@ -10,6 +10,9 @@ Router.map(function() {
   this.route('submission', function() {
     this.route('assignment',{path:'assignment/:assignmentNumber'});
   });
+  this.route('account', function() {
+    this.route('new');
+  });
 });
 
 export default Router;
