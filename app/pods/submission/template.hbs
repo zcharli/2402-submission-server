@@ -1,14 +1,15 @@
 <div class="submission-wrapper">
-  <div class="submission-sidebar hide-on-small-only">
+  <div class="submission-sidebar hide-on-small-only z-depth-2">
     <div class="assignment-header">
-      Assignments
+      {{#link-to 'submission' class="assignment-header"}}Assignments{{/link-to}}
+      
     </div>
     <ul class="assignment-list">
-      <li>{{#link-to 'submission.assignment' 1}}Problem 1{{/link-to}}</li>
-      <li>{{#link-to 'submission.assignment' 2}}Problem 2{{/link-to}}</li>
-      <li>{{#link-to 'submission.assignment' 3}}Problem 3{{/link-to}}</li>
-      <li>{{#link-to 'submission.assignment' 4}}Problem 4{{/link-to}}</li>
-      <li>{{#link-to 'submission.assignment' 5}}Problem 5{{/link-to}}</li>
+      <li>{{#link-to 'submission.assignment' 1 class="problem-link"}}Problem 1{{/link-to}}</li>
+      <li>{{#link-to 'submission.assignment' 2 class="problem-link"}}Problem 2{{/link-to}}</li>
+      <li>{{#link-to 'submission.assignment' 3 class="problem-link"}}Problem 3{{/link-to}}</li>
+      <li>{{#link-to 'submission.assignment' 4 class="problem-link"}}Problem 4{{/link-to}}</li>
+      <li>{{#link-to 'submission.assignment' 5 class="problem-link"}}Problem 5{{/link-to}}</li>
     </ul>
   </div>
 

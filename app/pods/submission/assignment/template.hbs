@@ -1,2 +1,58 @@
-Submission Assignment {{assignmentNumber}} Page
-{{outlet}}
+<div class="row">
+  <div class="col s12">
+    <h4 class="content-title">Assignment {{assignmentNumber}} Submission Page</h4> 
+  </div>
+</div>
+
+<div class="row">
+  <div class="row">
+    <div class="col s12">
+      Upload your assignment.zip file here.
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 filepicker">
+      {{file-uploader url="/upload" 
+        markingCompletedCallback="markingCompleted" 
+        uploadCallback="uploadCompleted" 
+        uploadProgressCallback="uploadProgressChanged"}}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col s12">
+      <div class="progress">
+        <div class="determinate" id="assignment-upload-progress" style={{progress}}></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="results row">
+    <div class="row">
+      <div class="error-result col s12">
+        <span class="error-text">{{displayMarkingError}}</span>
+        <span class="error-text">{{displayUploadError}}</span>
+      </div>
+    </div>
+
+  <div class="row">
+    <div class="row">
+      <div class="col s8">
+        <div id="grade">{{displayMarkingGrade}}</div>
+      </div>
+      <div class="col s4">
+        <div class='send-results'>
+          <button class="btn waves-effect waves-light" {{action 'sendResultsToStudentEmail'}}>Send Result<i class="material-icons right">email</i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" style={{assignmentHasBeenMarked}}>
+    <div class="col s12 marking">
+        {{displayMarkingResult}}
+    </div>
+  </div>
+
+  </div>
+</div>

@@ -2,7 +2,9 @@
   "predef": [
     "document",
     "window",
-    "-Promise"
+    "-Promise",
+    "Materialize",
+    "escape"
   ],
   "browser": true,
   "boss": true,

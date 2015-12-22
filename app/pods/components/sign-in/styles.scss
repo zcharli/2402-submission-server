@@ -10,6 +10,10 @@ div.sign-in-section {
     position: relative;
     top: -5px;
 
+    .lighter {
+      font-weight: lighter;
+    }
+    
     div._sign-in-form {
       height: 100px;
       margin-top: 50px;

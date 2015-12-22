@@ -10,8 +10,7 @@ export default Ember.Component.extend({
   }.on('didInsertElement'),
   actions: {
     submitRequestForSecretKey: function() {
-      if(studentEmail && studentNumbert)
-      {
+      if(this.get('studentEmail') && this.get('studentNumber')) {
         var self = this;
 
         var userObj = {

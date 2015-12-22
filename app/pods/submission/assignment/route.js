@@ -4,7 +4,15 @@ export default Ember.Route.extend({
   secretKey: null,
   // activate: function() {},
   // deactivate: function() {},
-  // setupController: function(controller, model) {},
+  setupController: function(controller, model) {
+    this._super(controller,model);
+    controller.set("uploadPercent",0);
+    controller.set("markingError","");
+    controller.set("uploadError","");
+    controller.set("markingGrade",0);
+    controller.set("markingResult","");
+    controller.set("showResults",false);
+  },
   // renderTemplate: function() {},
   beforeModel: function() {
     var cookie = this.get("cookie");
@@ -18,12 +26,13 @@ export default Ember.Route.extend({
   },
   // afterModel: function() {},
 
-  model: function(params, transition) {
+  model: function(params) {
     var assignmentNumber = params.assignmentNumber;
     if(!assignmentNumber) {
       console.log("No transition number was given to this route!");
       this.transitionTo("application");
     }  
+
     return Ember.RSVP.hash({
       assignmentNumber: assignmentNumber
     });

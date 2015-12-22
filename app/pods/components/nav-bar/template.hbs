@@ -1,19 +1,21 @@
-<nav class="top-bar">
+<div class="navbar-fixed">
+  <nav class="top-bar">
 
-	<div class="nav-wrapper">
-    {{#link-to 'application'}}
-      <img id="carleton-logo" src="./images/carleton-logo-white-blur.png"/>
-      <div class="brand-logo" id="ds-algo-title">Data Structures &amp; Algorithms Submission Server </div>
-    {{/link-to}}
-    <a href="#" data-activates="mobile-mode" class="button-collapse"><i class="large material-icons">menu</i></a>
-	  <ul id="nav-mobile" class="right hide-on-med-and-down">
-	    <li>{{#link-to 'submission.index'}}Submission{{/link-to}}</li>
-	    <li>{{#link-to 'ranking.index'}}Rankings{{/link-to}}</li>
-	  </ul>
-    {{!-- Mobile Side Menu Below --}}
-    <ul class="side-nav" id="mobile-mode">
-      <li>{{#link-to 'submission.index'}}Submission{{/link-to}}</li>
-      <li>{{#link-to 'ranking.index'}}Rankings{{/link-to}}</li>
-    </ul>
-	</div>
-</nav>
+  	<div class="nav-wrapper">
+      {{#link-to 'application'}}
+        <img id="carleton-logo" src="./images/carleton-logo-white-blur.png"/>
+        <div class="brand-logo" id="ds-algo-title">Data Structures &amp; Algorithms Submission Server </div>
+      {{/link-to}}
+      <a href="#" data-activates="mobile-mode" class="button-collapse"><i class="large material-icons">menu</i></a>
+  	  <ul id="nav-mobile" class="right hide-on-med-and-down">
+  	    <li>{{#link-to 'submission.index'}}Submission{{/link-to}}</li>
+  	    <li>{{#link-to 'ranking.index'}}Rankings{{/link-to}}</li>
+  	  </ul>
+      {{!-- Mobile Side Menu Below --}}
+      <ul class="side-nav" id="mobile-mode">
+        <li>{{#link-to 'submission.index'}}Submission{{/link-to}}</li>
+        <li>{{#link-to 'ranking.index'}}Rankings{{/link-to}}</li>
+      </ul>
+  	</div>
+  </nav>
+</div>

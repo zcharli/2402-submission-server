@@ -1,7 +1,5 @@
 
-// Variables and Settings
-@import "./_fonts.scss";
-@import "./_base.scss";
+// Materialize Variables to override
 @import "./_variables.scss";
 
 // Import the Materialize CSS Libary
@@ -17,4 +15,5 @@
 // Page route styles
 @import "../../../app/pods/submission/styles";
 
-
+// Variables and Settings
+@import "./_base.scss";

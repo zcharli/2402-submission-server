@@ -1,3 +1,9 @@
+/*
+  On linux, there is a max to how many files can be watched by a user...
+  echo fs.inotify.max_user_watches=582222 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+  
+*/
+
 /*jshint node:true*/
 /* global require, module */
 var EmberApp = require('ember-cli/lib/broccoli/ember-app');
