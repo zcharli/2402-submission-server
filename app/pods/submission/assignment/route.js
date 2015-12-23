@@ -1,7 +1,7 @@
 import Ember from "ember";
 
 export default Ember.Route.extend({
-  secretKey: null,
+  //secretKey: null,
   // activate: function() {},
   // deactivate: function() {},
   setupController: function(controller, model) {
@@ -13,6 +13,14 @@ export default Ember.Route.extend({
     controller.set("markingResult","");
     controller.set("showResults",false);
     controller.set("markingHappening",false);
+    var localStorage = this.get('local-storage');
+    var assignmentKey = "a"+model.assignmentNumber;
+    var grades = localStorage.get("currentUser").grades[assignmentKey];
+    if(grades) {
+      controller.set("currenGrade", grades);
+    } else {
+      controller.set("currenGrade", null);
+    }
   },
   // renderTemplate: function() {},
   beforeModel: function() {
@@ -33,7 +41,6 @@ export default Ember.Route.extend({
       console.log("No transition number was given to this route!");
       this.transitionTo("application");
     }  
-
     return Ember.RSVP.hash({
       assignmentNumber: assignmentNumber
     });

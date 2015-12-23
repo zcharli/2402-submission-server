@@ -11,6 +11,8 @@ export default Ember.Controller.extend(ResponseErrorMixin, HtmlHelpers, {
   markingHappening: false,
   uploadError: "",
   showResults: false,
+  currenGrade: null,
+
   assignmentSubmissionRestRoute: Ember.computed("assignmentNumber", function() {
     return "assignment" + this.get('assignmentNumber');
   }),
@@ -39,6 +41,14 @@ export default Ember.Controller.extend(ResponseErrorMixin, HtmlHelpers, {
     }
   }),
 
+  displayBestGrade:Ember.computed("currenGrade", function(){
+    var bestMarkToDate = this.get("currenGrade");
+    if(bestMarkToDate) {
+      return new Ember.Handlebars.SafeString("Best mark: " + bestMarkToDate + "%");
+    } else {
+      return new Ember.Handlebars.SafeString("No submissions");
+    }
+  }),
   displayMarkingGrade: Ember.computed("markingGrade", function() {
     var grade = this.get("markingGrade");
     return new Ember.Handlebars.SafeString("Your grade is " + grade + "%.");
