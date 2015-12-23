@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   studentNumber: null,
-  studentEmail: null,
+  studentUsername: null,
   tagName: 'div',
   classNames: ["sign-up-section"],
   didInsertElement: function() {
@@ -10,12 +10,12 @@ export default Ember.Component.extend({
   }.on('didInsertElement'),
   actions: {
     submitRequestForSecretKey: function() {
-      if(this.get('studentEmail') && this.get('studentNumber')) {
+      if(this.get('studentUsername') && this.get('studentNumber')) {
         var self = this;
 
         var userObj = {
           studentNumber: self.get("studentNumber"),
-          studentEmail: self.get("studentEmail")
+          studentUsername: self.get("studentUsername")
         };
         
         this.sendAction("submitRequestForSecretKey", userObj);

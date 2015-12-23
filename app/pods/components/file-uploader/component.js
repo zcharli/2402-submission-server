@@ -16,6 +16,7 @@ export default EmberUploader.FileField.extend({
 
     if (!Ember.isEmpty(files)) {
       var promise = uploader.upload(files[0]);
+      self.sendAction("uploadStartedCallback",true);
 
       uploader.on('progress', function(e){
         // e.percent
@@ -37,7 +38,7 @@ export default EmberUploader.FileField.extend({
         data["statusText"] = 200;
         self.sendAction("markingCompletedCallback", data);
       }, function(error) {
-        // Handle failure
+        //Handle failure
         // error["statusText"] = 200;
         // error["resultGrade"] = 96.5;
         // error["resultString"] = "Ok <br> fuck <br> heme \n ok \n line";

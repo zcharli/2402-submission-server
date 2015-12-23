@@ -12,6 +12,7 @@ export default Ember.Route.extend({
     controller.set("markingGrade",0);
     controller.set("markingResult","");
     controller.set("showResults",false);
+    controller.set("markingHappening",false);
   },
   // renderTemplate: function() {},
   beforeModel: function() {

@@ -6,6 +6,7 @@ export default Ember.Controller.extend({
   markingError: "",
   markingResult: "",
   markingGrade: 0,
+  markingHappening:false,
   uploadError: "",
   showResults: false,
 
@@ -20,6 +21,14 @@ export default Ember.Controller.extend({
   assignmentHasBeenMarked: Ember.computed("showResults",function() {
     var showResultSection = this.get('showResults');
     if(showResultSection) {
+      return new Ember.Handlebars.SafeString("display: block");
+    } else {
+      return new Ember.Handlebars.SafeString("display: none");
+    }
+  }),
+  assignmentCurrentlyBeingMarked: Ember.computed("markingHappening",function(){
+    var showMarkingSpinner = this.get('markingHappening');
+    if(showMarkingSpinner) {
       return new Ember.Handlebars.SafeString("display: block");
     } else {
       return new Ember.Handlebars.SafeString("display: none");
@@ -69,7 +78,10 @@ export default Ember.Controller.extend({
         Materialize.toast("Upload has successfull completed!", 1500 );
         this.set("uploadError", "");
       }
-
+      this.set("markingHappening",false);
+    },
+    markingStarted: function() {
+      this.set("markingHappening", true);
     },
     markingCompleted: function(result) {
       // Catches success and fail case of marking completion
@@ -83,9 +95,7 @@ export default Ember.Controller.extend({
         this.set("markingResult",result.resultString);
         this.set("markingGrade",result.resultGrade);
         this.set("showResults",true);
-
       }
-
     }
   }
 });
