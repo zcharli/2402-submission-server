@@ -4,53 +4,49 @@ export default Ember.Object.extend({
   // localstorage can onyl store strings but we can get around that by 
   // stringify any js data structure and then parse it after
   // Do not try to put everything into local storage, it has a 5MB limit
-  exists:function(key){
-    if(!Ember.isNone(key) && !Ember.isNone(localStorage[key])){
+  exists: function(key) {
+    if (!Ember.isNone(key) && !Ember.isNone(localStorage[key])) {
       return true;
     }
     return false;
   },
   get: function(key) {
     // gets the value of a key
-    if( !Ember.isNone(key) && !Ember.isNone(localStorage[key])) {
+    if (!Ember.isNone(key) && !Ember.isNone(localStorage[key])) {
       return JSON.parse(localStorage[key]);
     }
     return undefined;
   },
-  add: function(key,value){
-    if( !Ember.isNone(key) && !Ember.isNone(value)) {
-      if(this.get("exists").call(this,key)) {
-        this.get('update').call(this,key, value);
-      } else {
-        localStorage[key] = JSON.stringify(value);
-      }
+  add: function(key, value) {
+    if (!Ember.isNone(key) && !Ember.isNone(value)) {
+      localStorage[key] = JSON.stringify(value);
     }
   },
-  update:function(key,value){
-    if( !Ember.isNone(key) && !Ember.isNone(localStorage[key]) && !Ember.isNone(value)) {
+  update: function(key, value) {
+    if (!Ember.isNone(key) && !Ember.isNone(localStorage[key]) && !Ember.isNone(value)) {
       localStorage.setItem(key, JSON.stringify(value));
     }
     //this.notifyPropertyChange(key);
   },
-  delete:function(key){
-    if(!Ember.isNone(key)){
+  delete: function(key) {
+    if (!Ember.isNone(key)) {
       localStorage.removeItem(key);
     }
   },
-  getLocalStorageSize:function(){
+  getLocalStorageSize: function() {
     var allStrings = '';
-    for(var key in localStorage){
-      if(localStorage.hasOwnProperty(key)){
-          allStrings += localStorage[key];
+    for (var key in localStorage) {
+      if (localStorage.hasOwnProperty(key)) {
+        allStrings += localStorage[key];
       }
     }
-    return allStrings ? 3 + ((allStrings.length*16)/(8*1024)) + ' KB' : 'Empty (0 KB)';
+    return allStrings ? 3 + ((allStrings.length * 16) / (8 * 1024)) + ' KB' : 'Empty (0 KB)';
   },
-  print:function(){
+  print: function() {
     // prints the contents of storage
     console.log("Printing contents of the storage");
-    for(var key in localStorage){
-      if(localStorage.hasOwnProperty(key)){
+    for (var key in localStorage) {
+      if (localStorage.hasOwnProperty(key)) {
         console.log(key + ": " + localStorage[key]);
       }
     }

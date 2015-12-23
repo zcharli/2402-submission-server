@@ -1,11 +1,11 @@
 import DS from 'ember-data';
 
 export default DS.RESTAdapter.extend({
-  host: function(){
+  host: function() {
     return this.get('rest-api').getHost();
   },
-  buildURL: function(type,id) {
-    console.log("buildURL("+type+","+id+")");
+  buildURL: function(type, id) {
+    console.log("buildURL(" + type + "," + id + ")");
   }
 
 });

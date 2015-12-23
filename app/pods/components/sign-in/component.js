@@ -5,7 +5,7 @@ export default Ember.Component.extend({
   classNames: ['sign-in-section'],
   userInputedSecretKey: null,
   onPageLoad: function() {
-   
+
   }.on('didInsertElement'),
   actions: {
     submitSecretKey: function() {
@@ -13,7 +13,7 @@ export default Ember.Component.extend({
       var secretKey = this.get('userInputedSecretKey');
 
       // Controller must send over action key submitSecretKey
-      if(secretKey) {
+      if (secretKey) {
 
         // Ajax this call to verify key
         this.sendAction('submitSecretKey', secretKey.trim());
@@ -25,7 +25,7 @@ export default Ember.Component.extend({
       Ember.$("#input-secret-key").addClass("invalid");
 
       /* jshint ignore:start */
-      Materialize.toast("<div style='color:red'>The key you entered was invalid!</div>", 1500 );
+      Materialize.toast("<div style='color:red'>The key you entered was invalid!</div>", 3000);
       /* jshint ignore:end */
     }
   }

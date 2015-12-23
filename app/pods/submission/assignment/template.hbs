@@ -12,7 +12,7 @@
   </div>
   <div class="row">
     <div class="col s12 filepicker">
-      {{file-uploader url="/upload" 
+      {{file-uploader markingRouteParameter=assignmentSubmissionRestRoute 
         markingCompletedCallback="markingCompleted" 
         uploadCallback="uploadCompleted" 
         uploadProgressCallback="uploadProgressChanged"
@@ -38,8 +38,8 @@
 
   <div class="row">
 
-    <div class="row" style={{assignmentCurrentlyBeingMarked}}>
-      <div class="row">
+    <div class="row">
+      <div class="row" style={{assignmentCurrentlyBeingMarked}}>
         <div class="col s4 offset-s5">
           <div class="preloader-wrapper big active">
             <div class="spinner-layer spinner-blue-only">
@@ -78,7 +78,7 @@
     </div>
 
         <div class="col s12 marking">
-            {{displayMarkingResult}}
+            <span style="white-space: pre-line">{{displayMarkingResult}}</span>
         </div>
       </div>
 

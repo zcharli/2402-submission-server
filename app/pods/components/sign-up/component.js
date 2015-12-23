@@ -6,18 +6,18 @@ export default Ember.Component.extend({
   tagName: 'div',
   classNames: ["sign-up-section"],
   didInsertElement: function() {
-   
+
   }.on('didInsertElement'),
   actions: {
     submitRequestForSecretKey: function() {
-      if(this.get('studentUsername') && this.get('studentNumber')) {
+      if (this.get('studentUsername') && this.get('studentNumber')) {
         var self = this;
 
         var userObj = {
           studentNumber: self.get("studentNumber"),
           studentUsername: self.get("studentUsername")
         };
-        
+
         this.sendAction("submitRequestForSecretKey", userObj);
       }
     }

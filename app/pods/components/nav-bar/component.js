@@ -7,6 +7,6 @@ export default Ember.Component.extend({
     Ember.run.scheduleOnce('afterRender', this, function() {
       this.$(".button-collapse").sideNav();
     });
-    
+
   }.on('didInsertElement')
 });

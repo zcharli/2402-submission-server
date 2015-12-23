@@ -2,10 +2,10 @@ import Ember from 'ember';
 import EmberUploader from 'ember-uploader';
 
 export default EmberUploader.FileField.extend({
-  url: '',
+  markingRouteParameter: '',
   filesDidChange: function(files) {
-    var uploadUrl = this.get('url'),
-             self = this;
+    var uploadUrl = this.get('rest-api').getHost() + '/marking/' + this.get('markingRouteParameter'),
+      self = this;
 
     console.log(uploadUrl);
 
@@ -16,9 +16,9 @@ export default EmberUploader.FileField.extend({
 
     if (!Ember.isEmpty(files)) {
       var promise = uploader.upload(files[0]);
-      self.sendAction("uploadStartedCallback",true);
+      self.sendAction("uploadStartedCallback", true);
 
-      uploader.on('progress', function(e){
+      uploader.on('progress', function(e) {
         // e.percent
         self.sendAction("uploadProgressCallback", e.percent);
       });
@@ -35,13 +35,15 @@ export default EmberUploader.FileField.extend({
 
       promise.then(function(data) {
         // Handle success
-        data["statusText"] = 200;
+        data["successCode"] = 2002;
+
         self.sendAction("markingCompletedCallback", data);
       }, function(error) {
         //Handle failure
-        // error["statusText"] = 200;
-        // error["resultGrade"] = 96.5;
-        // error["resultString"] = "Ok <br> fuck <br> heme \n ok \n line";
+        error["successCode"] = 2002;
+        error.data = {};
+        error.data.markingGrade = 96.5;
+        error.data.markingLog = "This is a line \n this another line ok \n\n this is a paragraph";
         self.sendAction("markingCompletedCallback", error);
       });
     }

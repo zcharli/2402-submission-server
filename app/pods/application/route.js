@@ -6,8 +6,8 @@ export default Ember.Route.extend({
   // setupController: function(controller, model) {},
   beforeModel: function() {
     var cookie = this.get("cookie");
-    var token  = cookie.getCookie('secretKey');
-    if(!token) {
+    var token = cookie.getCookie('secretKey');
+    if (!token) {
       console.log("Token Missing from assignment route");
       this.transitionTo("application");
     }
@@ -16,6 +16,6 @@ export default Ember.Route.extend({
   // setupController: function(controller, model){
   // },
   model: function() {
-      return ;
+    return;
   },
 });

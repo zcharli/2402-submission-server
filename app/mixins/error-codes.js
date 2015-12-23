@@ -1,13 +1,13 @@
 import Ember from 'ember';
 
 export default Ember.Mixin.create({
-  getErrorString:function(response) {
+  getErrorString: function(response) {
     var retString = "";
     var errorResponseCode = 0;
-    if(response.hasOwnProperty("error")) {
+    if (response.hasOwnProperty("error")) {
       errorResponseCode = response.error;
-    } 
-    switch(errorResponseCode) {
+    }
+    switch (errorResponseCode) {
       case 1001:
         retString = "No Email provided";
         break;
@@ -38,8 +38,8 @@ export default Ember.Mixin.create({
     }
     return retString;
   },
-  checkResponseSuccessful:function(response) {
-    if(response.hasOwnProperty("error") && response.error) {
+  checkResponseSuccessful: function(response) {
+    if (response.hasOwnProperty("error") && response.error) {
       console.log("Response has an error.");
       return false;
     }
