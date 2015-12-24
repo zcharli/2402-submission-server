@@ -41,9 +41,9 @@ export default Ember.Controller.extend(ResponseErrorMixin, HtmlHelpers, {
     }
   }),
 
-  displayBestGrade:Ember.computed("currenGrade", function(){
+  displayBestGrade: Ember.computed("currenGrade", function() {
     var bestMarkToDate = this.get("currenGrade");
-    if(bestMarkToDate) {
+    if (bestMarkToDate) {
       return new Ember.Handlebars.SafeString("Best mark: " + bestMarkToDate + "%");
     } else {
       return new Ember.Handlebars.SafeString("No submissions");
@@ -71,45 +71,79 @@ export default Ember.Controller.extend(ResponseErrorMixin, HtmlHelpers, {
 
   successAjaxCall: function(results) {
     if (!this.get('checkResponseSuccessful').call(this, results)) {
-      var errorMessage = this.get('getErrorString').call(this,results);
-      Materialize.toast("<div style='color:red'>Server error: "+errorMessage+".</div>", 3000);
+      var errorMessage = this.get('getErrorString').call(this, results);
+      Materialize.toast("<div style='color:red'>Server error: " + errorMessage + ".</div>", 3000);
     } else {
       var message = "The email was successfully sent to " + results.data.email;
       Materialize.toast(message, 3000);
     }
   },
 
+  findGradeFromResult: function(resultText) {
+    var grade = 0;
+    var lastTotalLine = resultText[resultText.length - 1];
+    var split = lastTotalLine.split(" ");
+    var gradeFraction = split[split.length-1];
+    console.log(gradeFraction);
+    var numFractionSplit = gradeFraction.match(/\d+/g);
+    if(numFractionSplit.length < 2) {
+      console.log("Fractions are wrong");
+    } else {
+      grade  =  numFractionSplit[0] / numFractionSplit[1];
+    }
+    return grade;
+  },
   actions: {
+    errorDuringUpload: function(errorCode) {
+      switch (errorCode) {
+        case 1:
+          // Not logged in/no user storage
+          Materialize.toast("<div style='color:red'>Please login first.</div>", 3000);
+
+          this.transitionToRoute("application");
+          break;
+        case 2:
+          // Not a zip file
+          Materialize.toast("<div style='color:red'>You must upload a zip file!</div>", 3000);
+
+          break;
+        default:
+          // Unknown
+          Materialize.toast("<div style='color:red'>An error occured on the client side during upload!</div>", 3000);
+
+          break;
+      }
+    },
     sendResultsToStudentEmail: function() {
       var restApiParam = "a" + this.get('assignmentNumber'),
-          restRoute = this.get('rest-api').getHost() + "/results/" + restApiParam,
-          secretKey = this.get('local-storage').get("currentUser").secretKey,
-          self = this;
+        restRoute = this.get('rest-api').getHost() + "/results/" + restApiParam,
+        secretKey = this.get('local-storage').get("currentUser").secretKey,
+        self = this;
 
-      console.log("Sending results to current user by secretKey: "+secretKey);
+      console.log("Sending results to current user by secretKey: " + secretKey);
       Ember.$.ajax({
         url: restRoute,
         data: {
-           secretKey: secretKey
+          secretKey: secretKey
         },
         crossDomain: true,
-        xhrFields: {
-          withCredentials: true
-        },
+        // xhrFields: {
+        //   withCredentials: true
+        // },
         error: function() {
-          Materialize.toast("<div style='color:red'>Server error while sending results to you.</div>", 1500);
+          Materialize.toast("<div style='color:red'>Server error while sending results to you.</div>", 3000);
         },
         dataType: 'json',
-        success:  function(results) {
+        success: function(results) {
           if (!self.get('checkResponseSuccessful').call(self, results)) {
-            var errorMessage = self.get('getErrorString').call(self,results);
-            Materialize.toast("<div style='color:red'>Server error: "+errorMessage+".</div>", 3000);
+            var errorMessage = self.get('getErrorString').call(self, results);
+            Materialize.toast("<div style='color:red'>Server error: " + errorMessage + ".</div>", 3000);
           } else {
             var message = "The email was successfully sent to " + results.data.email;
             Materialize.toast(message, 3000);
           }
         },
-        type: 'POST'
+        type: 'GET'
       });
 
     },
@@ -136,26 +170,33 @@ export default Ember.Controller.extend(ResponseErrorMixin, HtmlHelpers, {
       // Catches success and fail case of marking completion
       console.log(result);
       if (!this.get('checkResponseSuccessful').call(this, result)) {
+        var message = this.get("getErrorString").call(this, result);
+        Materialize.toast("<div style='color:red'>Assignment marking error: " + message + "</div>", 3000);
 
-        Materialize.toast("<div style='color:red'>Assignment marking error!</div>", 3000);
-
-        // Test Code below
-        this.set("markingError", "");
-        this.set("markingResult", this.get('htmlEntities').call(this, result.data.markingLog));
-        this.set("markingGrade", result.data.markingGrade);
-        this.set("showResults", true);
-
+        if (!result.hasOwnProperty("statusText")) {
+          result.statusText = "Error: " + result.responseCode;
+          result.responseText = message;
+        }
         // Default code below
-        // this.set("showResults", false);
-        // this.set("markingResult", "");
-        // this.set("markingGrade", "");
-        // this.set("markingError", result);
+        this.set("showResults", false);
+        this.set("markingResult", "");
+        this.set("markingGrade", "");
+        this.set("markingError", result);
       } else {
         Materialize.toast("Your assignment has been marked!", 3000);
         this.set("markingError", "");
-        this.set("markingResult", this.get('htmlEntities').call(this, result.data.markingLog));
-        this.set("markingGrade", result.data.markingGrade);
+        this.set("markingResult", this.get('htmlEntities').call(this, result.data.markingLog.join(" ")));
+
+        var markingGrade = this.get('findGradeFromResult').call(this, result.data.markingLog);
+        this.set("markingGrade", markingGrade);
         this.set("showResults", true);
+
+        var currentMark = this.get("currentGrade");
+
+        if (markingGrade > currentMark) {
+          this.set("currenGrade", markingGrade);
+        }
+
       }
     }
   }
