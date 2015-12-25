@@ -11,7 +11,7 @@ export default Ember.Controller.extend(ResponseErrorMixin, HtmlHelpers, {
   markingHappening: false,
   uploadError: "",
   showResults: false,
-  currenGrade: null,
+  currentGrade: null,
 
   assignmentSubmissionRestRoute: Ember.computed("assignmentNumber", function() {
     return "assignment" + this.get('assignmentNumber');
@@ -41,8 +41,8 @@ export default Ember.Controller.extend(ResponseErrorMixin, HtmlHelpers, {
     }
   }),
 
-  displayBestGrade: Ember.computed("currenGrade", function() {
-    var bestMarkToDate = this.get("currenGrade");
+  displayBestGrade: Ember.computed("currentGrade", function() {
+    var bestMarkToDate = this.get("currentGrade");
     if (bestMarkToDate) {
       return new Ember.Handlebars.SafeString("Best mark: " + bestMarkToDate + "%");
     } else {
@@ -187,14 +187,15 @@ export default Ember.Controller.extend(ResponseErrorMixin, HtmlHelpers, {
         this.set("markingError", "");
         this.set("markingResult", this.get('htmlEntities').call(this, result.data.markingLog.join(" ")));
 
-        var markingGrade = this.get('findGradeFromResult').call(this, result.data.markingLog);
+        var markingGrade = result.data.student.grades["a"+this.get("assignmentNumber")];
+        //this.get('findGradeFromResult').call(this, result.data.markingLog);
         this.set("markingGrade", markingGrade);
         this.set("showResults", true);
 
         var currentMark = this.get("currentGrade");
 
         if (markingGrade > currentMark) {
-          this.set("currenGrade", markingGrade);
+          this.set("currentGrade", markingGrade);
         }
 
       }

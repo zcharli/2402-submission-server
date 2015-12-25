@@ -60,7 +60,8 @@ export default Ember.Component.extend(ResponseErrorMixin, {
               Materialize.toast("<div style='color:red'>Server error: " + errorMessage + "</div>", 3000);
             } else {
               console.log(result);
-              var message = "The secret key was successfully generated and sent to your email: " + result.data.email;
+              var message = "The secret key was successfully generated and sent to your email: " + result.data.email +
+                "@cmail.carleton.ca";
               Materialize.toast(message, 3000);
             }
             self.get("switchLoadingButtons").call(self);
