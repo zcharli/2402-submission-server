@@ -3,7 +3,8 @@ import ResponseErrorMixin from '../../mixins/error-codes';
 import StudentModel from '../../models/student-model';
 
 export default Ember.Controller.extend(ResponseErrorMixin, {
-  // needs: [],
+   //needs: ["application"],
+   applicationController: Ember.inject.controller("application"),
   // successAjaxCall: function(response) {
   //   if (!this.get("checkResponseSuccessful").call(this, response)) {
   //     var retString = this.get("getErrorString").call(this, response);
@@ -34,6 +35,7 @@ export default Ember.Controller.extend(ResponseErrorMixin, {
     verifyUserSecretKey: function(secretKey) {
       console.log("Controller hit " + secretKey);
       var self = this;
+      console.log(this.get('applicationController'));
 
       // Verify key for login
       Ember.$.ajax({
@@ -69,7 +71,7 @@ export default Ember.Controller.extend(ResponseErrorMixin, {
           // Replace the current localstorage with 
           self.get('local-storage').add("currentUser", student);
           Materialize.toast("Welcome :)", 3000);
-
+          self.set('applicationController.userLoggedIn', student.email);
           cookie.setCookie("secretKey", student.secretKey).then(function() {
             self.transitionToRoute("submission");
           });

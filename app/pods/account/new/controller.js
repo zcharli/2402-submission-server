@@ -16,8 +16,7 @@ export default Ember.Controller.extend(ResponseErrorMixin, {
 
   actions: {
     generateUserSecretKey: function(userObj, success, fail) {
-      var restRoute = this.get('rest-api').getHost() + "/secretCode/generateKey",
-          self = this;
+      var restRoute = this.get('rest-api').getHost() + "/secretCode/generateKey";
       console.log("componet: " + this.get('signUpComponent'));
       Ember.$.ajax({
         url: restRoute,

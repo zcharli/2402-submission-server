@@ -8,5 +8,15 @@ export default Ember.Component.extend({
       this.$(".button-collapse").sideNav();
     });
 
-  }.on('didInsertElement')
+  }.on('didInsertElement'),
+  userNameSubject: "",
+  observingUserName: Ember.observer("userNameObserver", function(name){
+    console.log(this.get("userNameObserver"));
+    this.set("userNameSubject",this.get("userNameObserver"));
+  }).on('init'),
+  actions: {
+    logout: function() {
+      this.sendAction("action",null);
+    }
+  }
 });

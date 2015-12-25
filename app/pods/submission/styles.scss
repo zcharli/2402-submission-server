@@ -7,6 +7,18 @@
   height: 100%;
 }
 
+.logged-in-as {
+  font-weight: lighter;
+  position: relative;
+  left: 20px;
+}
+
+.hover-link {
+  background-color: $side-bar-link-hover;
+  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.2);
+  width: 100%;
+}
+
 .content-section-padding {
   padding-right: 270px;
   //padding-left: 20px;
@@ -54,9 +66,7 @@
       padding-bottom:10px;
     }
     li a:hover {
-      background-color: $side-bar-link-hover;
-      box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.2);
-      width: 100%;
+      @extend .hover-link;
     }
   }
 }

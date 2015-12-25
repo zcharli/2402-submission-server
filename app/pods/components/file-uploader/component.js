@@ -4,14 +4,14 @@ import EmberUploader from 'ember-uploader';
 export default EmberUploader.FileField.extend({
   markingRouteParameter: '',
   checkUploadFile: function(filename) {
-    var extRegex = /\zip$/
+    var extRegex = /\zip$/;
     return extRegex.test(filename);
   },
   filesDidChange: function(files) {
     console.log(files);
     console.log(files.length);
 
-    if (files.length != 1 || !this.get("checkUploadFile").call(this, files[0].name)) {
+    if (files.length !== 1 || !this.get("checkUploadFile").call(this, files[0].name)) {
       this.sendAction("uploadError", 2);
       return;
     }

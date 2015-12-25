@@ -4,7 +4,7 @@ export default Ember.Mixin.create({
   getErrorString: function(response) {
     var retString = "";
     var errorResponseCode = 0;
-    if (response.responseType == "error") {
+    if (response.responseType === "error") {
       errorResponseCode = response.responseCode;
     }
     switch (errorResponseCode) {
@@ -39,7 +39,7 @@ export default Ember.Mixin.create({
     return retString;
   },
   checkResponseSuccessful: function(response) {
-    if (response.responseType == "error") {
+    if (response.responseType === "error") {
       console.log("Response has an error.");
       return false;
     }
