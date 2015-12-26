@@ -13,7 +13,7 @@ export default Ember.Component.extend({
     // }
   },
   userName: "",
-  userNameSpectator: Ember.observer("userNameSubject",function(name){
+  userNameSpectator: Ember.observer("userNameSubject",function(){
     console.log(this.get("userNameSubject"));
     this.set("userName",this.get("userNameSubject"));
   }).on('init'),

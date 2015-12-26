@@ -6,7 +6,7 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
-  this.route('ranking', function() {});
+  this.route('ranks', function() {});
   this.route('submission', function() {
     this.route('assignment',{path:'assignment/:assignmentNumber'});
   });

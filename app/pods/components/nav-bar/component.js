@@ -10,7 +10,7 @@ export default Ember.Component.extend({
 
   }.on('didInsertElement'),
   userNameSubject: "",
-  observingUserName: Ember.observer("userNameObserver", function(name){
+  observingUserName: Ember.observer("userNameObserver", function(){
     console.log(this.get("userNameObserver"));
     this.set("userNameSubject",this.get("userNameObserver"));
   }).on('init'),

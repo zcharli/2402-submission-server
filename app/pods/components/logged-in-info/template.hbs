@@ -1,8 +1,8 @@
 <div class="logged-in" style={{displayLogout}}>
-  Logged in as {{displayLoginUsername}},  <a {{action 'logout'}}>Logout?</a>
+  Logged in as {{displayLoginUsername}},  <a class="manipulate-session" {{action 'logout' }}>Logout?</a>
 </div>
 
 <div class="logged-out" style={{displayLogin}}>
-  {{#link-to "application"}}Login{{/link-to}}
+  {{#link-to "application" class="manipulate-session"}}Login{{/link-to}}
 </div>
 
