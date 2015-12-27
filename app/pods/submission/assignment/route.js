@@ -16,10 +16,11 @@ export default Ember.Route.extend({
     var localStorage = this.get('local-storage');
     var assignmentKey = "a"+model.assignmentNumber;
     var grades = localStorage.get("currentUser").grades[assignmentKey];
+    console.log(grades);
     if(grades) {
-      controller.set("currenGrade", grades);
+      controller.set("currentGrade", grades);
     } else {
-      controller.set("currenGrade", null);
+      controller.set("currentGrade", null);
     }
   },
   // renderTemplate: function() {},
