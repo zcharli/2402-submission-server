@@ -17,7 +17,6 @@ export default Ember.Controller.extend(ResponseErrorMixin, {
   actions: {
     generateUserSecretKey: function(userObj, success, fail) {
       var restRoute = this.get('rest-api').getHost() + "/secretCode/generateKey";
-      console.log("componet: " + this.get('signUpComponent'));
       Ember.$.ajax({
         url: restRoute,
         data: {
@@ -33,8 +32,6 @@ export default Ember.Controller.extend(ResponseErrorMixin, {
         success: success,
         type: 'POST'
       });
-
-      console.log("User " + userObj.studentNumber + " " + userObj.studentUsername + " submitted details to generate key");
     }
   }
 });

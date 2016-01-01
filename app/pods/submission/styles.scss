@@ -61,12 +61,16 @@
       font-weight: lighter;
       font-size: large;
       width: 100%;
-      padding-left:40px;
+      padding-left:30px;
       padding-top:10px;
       padding-bottom:10px;
     }
     li a:hover {
       @extend .hover-link;
+      transition: all 0.2s ease-out;
+    }
+    li a.active {
+      background-color: #D32F2F !important;
     }
   }
 }

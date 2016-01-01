@@ -26,8 +26,6 @@ export default Ember.Component.extend(ResponseErrorMixin, {
   }),
   init: function() {
     this._super();
-    console.log(this);
-    console.log("called init");
     this.set('register-as', this); // register-as is a new property
   },
   didInsertElement: function() {
@@ -59,7 +57,6 @@ export default Ember.Component.extend(ResponseErrorMixin, {
               var errorMessage = self.get('getErrorString').call(self, result);
               Materialize.toast("<div style='color:red'>Server error: " + errorMessage + "</div>", 3000);
             } else {
-              console.log(result);
               var message = "The secret key was successfully generated and sent to your email: " + result.data.email +
                 "@cmail.carleton.ca";
               Materialize.toast(message, 3000);

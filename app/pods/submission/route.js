@@ -9,7 +9,6 @@ export default Ember.Route.extend({
   // afterModel: function() {},
 
   model: function() {
-    console.log("Hit Submission general Route");  
     return ;
   }
 });

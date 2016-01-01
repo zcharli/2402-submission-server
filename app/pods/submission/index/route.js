@@ -8,7 +8,7 @@ export default Ember.Route.extend({
   beforeModel: function() {
     var cookie = this.get("cookie");
     var token  = cookie.getCookie('secretKey');
-    console.log(token);
+   
     if(!token) {
       console.log("Token Missing form Submission route");
       this.transitionTo("application");
@@ -17,6 +17,6 @@ export default Ember.Route.extend({
   // afterModel: function() {},
 
   model: function() {
-    console.log("Hit Submission index Route");  
+    
   }
 });

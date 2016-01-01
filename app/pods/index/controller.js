@@ -3,8 +3,8 @@ import ResponseErrorMixin from '../../mixins/error-codes';
 import StudentModel from '../../models/student-model';
 
 export default Ember.Controller.extend(ResponseErrorMixin, {
-   //needs: ["application"],
-   applicationController: Ember.inject.controller("application"),
+  //needs: ["application"],
+  applicationController: Ember.inject.controller("application"),
   // successAjaxCall: function(response) {
   //   if (!this.get("checkResponseSuccessful").call(this, response)) {
   //     var retString = this.get("getErrorString").call(this, response);
@@ -33,9 +33,7 @@ export default Ember.Controller.extend(ResponseErrorMixin, {
   // },
   actions: {
     verifyUserSecretKey: function(secretKey) {
-      console.log("Controller hit " + secretKey);
       var self = this;
-      console.log(this.get('applicationController'));
 
       // Verify key for login
       Ember.$.ajax({
@@ -49,25 +47,23 @@ export default Ember.Controller.extend(ResponseErrorMixin, {
         },
         dataType: 'json',
         success: function(response) {
-          console.log(response);
-          
+
           if (!self.get("checkResponseSuccessful").call(self, response)) {
             var retString = self.get("getErrorString").call(self, response);
             Materialize.toast("<div style='color:red'>Server error: " + retString + "</div>", 3000);
             return;
           }
           var responseData = response.data.student,
-              student = StudentModel.create({
-                  email: responseData.email,
-                  stdNumber: responseData.stdNumber,
-                  secretKey: responseData.secretKey,
-                  userID: responseData.userID,
-                  grades: responseData.grades,
-                  _id: responseData._id
-                });
-          
+            student = StudentModel.create({
+              email: responseData.email,
+              stdNumber: responseData.stdNumber,
+              secretKey: responseData.secretKey,
+              userID: responseData.userID,
+              grades: responseData.grades,
+              _id: responseData._id
+            });
+
           var cookie = self.get("cookie");
-          console.log(student);
           // Replace the current localstorage with 
           self.get('local-storage').add("currentUser", student);
           Materialize.toast("Welcome :)", 3000);

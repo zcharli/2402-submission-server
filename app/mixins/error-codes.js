@@ -40,7 +40,6 @@ export default Ember.Mixin.create({
   },
   checkResponseSuccessful: function(response) {
     if (response.responseType === "error") {
-      console.log("Response has an error.");
       return false;
     }
     return true;

@@ -2,14 +2,28 @@
 
 div.sign-in-section {
   div._header {
-    background-color: $_header-bg;
+
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#431444+0,431444+0,914d7c+46,ce4d3a+77,992f27+100,972f29+100 */
+    background: rgb(67,20,68); /* Old browsers */
+    background: moz-radial-gradient(transparent 50%,rgba(0,0,0,.3) 100%),-moz-linear-gradient(-45deg, rgba(67,20,68,1) 0%, rgba(67,20,68,1) 0%, rgba(145,77,124,1) 46%, rgba(206,77,58,1) 77%, rgba(153,47,39,1) 100%, rgba(151,47,41,1) 100%); /* FF3.6-15 */
+    background: -webkit-radial-gradient(transparent 50%,rgba(0,0,0,.3) 100%),-webkit-linear-gradient(-45deg, rgba(67,20,68,1) 0%,rgba(67,20,68,1) 0%,rgba(145,77,124,1) 46%,rgba(206,77,58,1) 77%,rgba(153,47,39,1) 100%,rgba(151,47,41,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: radial-gradient(transparent 50%,rgba(0,0,0,.3) 100%),linear-gradient(135deg, rgba(67,20,68,1) 0%,rgba(67,20,68,1) 0%,rgba(145,77,124,1) 46%,rgba(206,77,58,1) 77%,rgba(153,47,39,1) 100%,rgba(151,47,41,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#431444', endColorstr='#972f29',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+    // /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#431444+0,431444+0,914d7c+46,c13f45+77,992f27+100,972f29+100 */
+    // background: rgb(67,20,68); /* Old browsers */
+    // background: -moz-radial-gradient(transparent 50%,rgba(0,0,0,.3) 100%),-moz-linear-gradient(-45deg, rgba(67,20,68,1) 0%, rgba(67,20,68,1) 0%, rgba(145,77,124,1) 46%, rgba(193,63,69,1) 77%, rgba(153,47,39,1) 100%, rgba(151,47,41,1) 100%); /* FF3.6-15 */
+    // background: -webkit-radial-gradient(transparent 50%,rgba(0,0,0,.3) 100%),-webkit-linear-gradient(-45deg, rgba(67,20,68,1) 0%,rgba(67,20,68,1) 0%,rgba(145,77,124,1) 46%,rgba(193,63,69,1) 77%,rgba(153,47,39,1) 100%,rgba(151,47,41,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    // background: radial-gradient(transparent 50%,rgba(0,0,0,.3) 100%), linear-gradient(135deg, rgba(67,20,68,1) 0%,rgba(67,20,68,1) 0%,rgba(145,77,124,1) 46%,rgba(193,63,69,1) 77%,rgba(153,47,39,1) 100%,rgba(151,47,41,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    // filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#431444', endColorstr='#972f29',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+    //background: radial-gradient(transparent 50%,rgba(0,0,0,.3) 100%),linear-gradient(-45deg, #992f27 0%, rgba(193,63,69,1) 46%, #914D7C 77%, #431444 100%);
     transition: box-shadow .25s;
     border-radius: 2px;
     height: 500px;
     padding-top: 70px;
     position: relative;
     top: -5px;
-
+    color:whitesmoke;
+    text-align: center;
     .lighter {
       font-weight: lighter;
     }
@@ -18,31 +32,32 @@ div.sign-in-section {
       height: 100px;
       margin-top: 50px;
       /* label color */
+  
       .input-field label {
-       color: #000;
+        color:whitesmoke;
       }
       /* label focus color */
       .input-field input[type=text]:focus + label {
-       color: #000;
+       color: whitesmoke;
       }
       /* label underline focus color */
       .input-field input[type=text]:focus {
-       border-bottom: 1px solid #000;
-       box-shadow: 0 1px 0 0 #000;
+       border-bottom: 1px solid whitesmoke;
+       box-shadow: 0 1px 0 0 whitesmoke;
       }
       /* valid color */
       .input-field input[type=text].valid {
-       border-bottom: 1px solid #000;
-       box-shadow: 0 1px 0 0 #000;
+       border-bottom: 1px solid whitesmoke;
+       box-shadow: 0 1px 0 0 whitesmoke;
       }
       /* invalid color */
       .input-field input[type=text].invalid {
-       border-bottom: 1px solid #000;
-       box-shadow: 0 1px 0 0 #000;
+       border-bottom: 1px solid whitesmoke;
+       box-shadow: 0 1px 0 0 whitesmoke;
       }
       /* icon prefix focus color */
       .input-field .prefix.active {
-       color: #000;
+       color: whitesmoke;
       }
     }
   }

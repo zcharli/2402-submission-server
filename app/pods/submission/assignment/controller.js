@@ -12,6 +12,7 @@ export default Ember.Controller.extend(ResponseErrorMixin, HtmlHelpers, {
   uploadError: "",
   showResults: false,
   currentGrade: null,
+  enableEmailPrepareSpinner: false,
 
   assignmentSubmissionRestRoute: Ember.computed("assignmentNumber", function() {
     return "assignment" + this.get('assignmentNumber');
@@ -41,6 +42,21 @@ export default Ember.Controller.extend(ResponseErrorMixin, HtmlHelpers, {
     }
   }),
 
+  displayAssignmentNumber: Ember.computed("assignmentNumber", function() {
+    var assignmentNumber = this.get("assignmentNumber");
+    if (/\x$/g.test(assignmentNumber)) {
+      // Contains the X
+      var text = assignmentNumber.match(/\d+/);
+      if (text.length < 1) {
+        // ERROR!
+        return 0;
+      } else {
+        return new Ember.Handlebars.SafeString("<b>" + text[0] + " Challenge</b>");
+      }
+    } else {
+      return new Ember.Handlebars.SafeString(assignmentNumber);
+    }
+  }),
   displayBestGrade: Ember.computed("currentGrade", function() {
     var bestMarkToDate = this.get("currentGrade");
     if (bestMarkToDate) {
@@ -69,27 +85,23 @@ export default Ember.Controller.extend(ResponseErrorMixin, HtmlHelpers, {
     return new Ember.Handlebars.SafeString(this.get('uploadError'));
   }),
 
-  successAjaxCall: function(results) {
-    if (!this.get('checkResponseSuccessful').call(this, results)) {
-      var errorMessage = this.get('getErrorString').call(this, results);
-      Materialize.toast("<div style='color:red'>Server error: " + errorMessage + ".</div>", 3000);
-    } else {
-      var message = "The email was successfully sent to " + results.data.email;
-      Materialize.toast(message, 3000);
-    }
+  resetForm: function() {
+    // Used to remvoe the form name and reset for next upload
+    Ember.$(".filepicker form").trigger("reset");
   },
+
+
 
   findGradeFromResult: function(resultText) {
     var grade = 0;
     var lastTotalLine = resultText[resultText.length - 1];
     var split = lastTotalLine.split(" ");
-    var gradeFraction = split[split.length-1];
-    console.log(gradeFraction);
+    var gradeFraction = split[split.length - 1];
     var numFractionSplit = gradeFraction.match(/\d+/g);
-    if(numFractionSplit.length < 2) {
-      console.log("Fractions are wrong");
+    if (numFractionSplit.length < 2) {
+      console.log("Mathematical Error! Write an angry email to charlieli@cmail.carleton.ca about this!");
     } else {
-      grade  =  numFractionSplit[0] / numFractionSplit[1];
+      grade = numFractionSplit[0] / numFractionSplit[1];
     }
     return grade;
   },
@@ -113,14 +125,15 @@ export default Ember.Controller.extend(ResponseErrorMixin, HtmlHelpers, {
 
           break;
       }
+      this.get("resetForm").call(this);
     },
     sendResultsToStudentEmail: function() {
+      this.set("enableEmailPrepareSpinner", true);
       var restApiParam = "a" + this.get('assignmentNumber'),
         restRoute = this.get('rest-api').getHost() + "/results/" + restApiParam,
         secretKey = this.get('local-storage').get("currentUser").secretKey,
         self = this;
 
-      console.log("Sending results to current user by secretKey: " + secretKey);
       Ember.$.ajax({
         url: restRoute,
         data: {
@@ -142,20 +155,19 @@ export default Ember.Controller.extend(ResponseErrorMixin, HtmlHelpers, {
             var message = "The email was successfully sent to " + results.data.email;
             Materialize.toast(message, 3000);
           }
+          self.set("enableEmailPrepareSpinner", false);
         },
         type: 'GET'
       });
 
     },
     uploadProgressChanged: function(percent) {
-      console.log(percent + "% completed");
       this.set("uploadPercent", percent);
     },
     uploadCompleted: function(error) {
       // Catches success and fail case of upload
       if (error) {
         Materialize.toast("<div style='color:red'>Assignment upload error!</div>", 3000);
-        console.log("Upload complete error: " + error);
         this.set("uploadError", error);
       } else {
         Materialize.toast("Upload has successfull completed!", 3000);
@@ -168,7 +180,6 @@ export default Ember.Controller.extend(ResponseErrorMixin, HtmlHelpers, {
     },
     markingCompleted: function(result) {
       // Catches success and fail case of marking completion
-      console.log(result);
       if (!this.get('checkResponseSuccessful').call(this, result)) {
         var message = this.get("getErrorString").call(this, result);
         Materialize.toast("<div style='color:red'>Assignment marking error: " + message + "</div>", 3000);
@@ -187,7 +198,7 @@ export default Ember.Controller.extend(ResponseErrorMixin, HtmlHelpers, {
         this.set("markingError", "");
         this.set("markingResult", this.get('htmlEntities').call(this, result.data.markingLog.join(" ")));
 
-        var markingGrade = result.data.student.grades["a"+this.get("assignmentNumber")];
+        var markingGrade = result.data.student.grades["a" + this.get("assignmentNumber")];
         //this.get('findGradeFromResult').call(this, result.data.markingLog);
         this.set("markingGrade", markingGrade);
         this.set("showResults", true);
@@ -199,6 +210,8 @@ export default Ember.Controller.extend(ResponseErrorMixin, HtmlHelpers, {
         }
 
       }
+
+      this.get("resetForm").call(this);
     }
   }
 });

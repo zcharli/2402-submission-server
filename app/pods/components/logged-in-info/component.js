@@ -13,14 +13,13 @@ export default Ember.Component.extend({
     // }
   },
   userName: "",
-  userNameSpectator: Ember.observer("userNameSubject",function(){
-    console.log(this.get("userNameSubject"));
-    this.set("userName",this.get("userNameSubject"));
+  userNameSpectator: Ember.observer("userNameSubject", function() {
+    this.set("userName", this.get("userNameSubject"));
   }).on('init'),
   displayLoginUsername: Ember.computed("userName", function() {
     return this.get("userName");
   }),
-  displayLogout: Ember.computed("userName",function(){
+  displayLogout: Ember.computed("userName", function() {
     var showLogout = this.get('userName');
     if (showLogout !== "") {
       return new Ember.Handlebars.SafeString("display: block");
@@ -28,7 +27,7 @@ export default Ember.Component.extend({
       return new Ember.Handlebars.SafeString("display: none");
     }
   }),
-  displayLogin: Ember.computed("userName",function(){
+  displayLogin: Ember.computed("userName", function() {
     var showLogout = this.get('userName');
     if (showLogout === "") {
       return new Ember.Handlebars.SafeString("display: block");
@@ -41,8 +40,7 @@ export default Ember.Component.extend({
   // }.on('didInsertElement')
   actions: {
     logout: function() {
-      console.log("Logged in info");
-      this.sendAction("action",null);
+      this.sendAction("action", null);
     }
   }
 });

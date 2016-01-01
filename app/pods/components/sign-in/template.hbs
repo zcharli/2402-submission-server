@@ -1,26 +1,26 @@
 <div class="_header card">
   <div class="container">
-    <div class="valign-wrapper">
-      <h2 class="valign lighter">Welcome to the <b>COMP2402</b> <br> homework submission server</h2>
-    </div>
+    
+      <h2 class="lighter">Welcome to the <b>COMP2402</b> <br> homework submission server</h2>
+   
     <div class="_sign-in-form">
       
       <div class="row">
 
         <form class="col s12" {{action "submitSecretKey" on="submit"}}>
           <div class="row">
-              <div class="input-field col s6 offset-s2">
+              <div class="input-field col s6 offset-s3">
                 <i class="material-icons prefix">account_circle</i>
                 {{input type="text" id="input-secret-key" class="validate" value=userInputedSecretKey tabindex="1" size="60" name="my-secret-submission-key"}}
-                <label for="input-secret-key" data-error="Wrong key">Secret Key</label>
+                <label class="whiten" for="input-secret-key" data-error="Wrong key">Secret Key</label>
               </div>
             </div>
             <br>
             <div class="row">
-              <div class="input-field col s4 offset-s2">
+              <div class="input-field col s3 offset-s3">
                 {{#link-to "account.new" class="btn waves-effect waves-light"}}Don't have a key? <i class="material-icons right">vpn_key</i>{{/link-to}}
               </div>
-              <div class="input-field col s4">
+              <div class="input-field col s2 offset-s1">
                 <button class="btn waves-effect waves-light" type="submit" name="action">Submit
                   <i class="material-icons right">send</i>
                 </button>

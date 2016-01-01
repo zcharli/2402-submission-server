@@ -7,7 +7,7 @@ export default Ember.Controller.extend({
     this._super();
     var localStorage = this.get('local-storage');
     var currentUser = localStorage.get('currentUser');
-    this.set("userName",currentUser.email);
+    this.set("userName", currentUser.email);
   },
   currentLoggedInUser: Ember.computed("userName", function() {
     return this.get("userName");

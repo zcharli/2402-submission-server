@@ -15,13 +15,18 @@ export default Ember.Route.extend({
     controller.set("markingHappening",false);
     var localStorage = this.get('local-storage');
     var assignmentKey = "a"+model.assignmentNumber;
-    var grades = localStorage.get("currentUser").grades[assignmentKey];
-    console.log(grades);
+    var currentUser = localStorage.get("currentUser");
+    var grades = currentUser.grades[assignmentKey];
     if(grades) {
       controller.set("currentGrade", grades);
     } else {
       controller.set("currentGrade", null);
     }
+    
+    Ember.run.scheduleOnce('afterRender', this, function() {
+      Ember.$(".assignment-list li.active").removeClass("active");
+      Ember.$(".assignment-list #"+assignmentKey).addClass("active");
+    });
   },
   // renderTemplate: function() {},
   beforeModel: function() {
@@ -42,6 +47,7 @@ export default Ember.Route.extend({
       console.log("No transition number was given to this route!");
       this.transitionTo("application");
     }  
+    
     return Ember.RSVP.hash({
       assignmentNumber: assignmentNumber
     });

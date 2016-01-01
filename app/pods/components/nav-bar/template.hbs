@@ -1,6 +1,5 @@
 <div class="navbar-fixed">
   <nav class="top-bar">
-
   	<div class="nav-wrapper">
       {{#link-to 'application'}}
         <img id="carleton-logo" src="./images/carleton-logo-white-blur.png"/>
@@ -17,6 +16,7 @@
         <li>{{#link-to 'ranks.index'}}Rankings{{/link-to}}</li>
       </ul>
   	</div>
+    <div style="clear:both;"></div>
+    {{logged-in-info action="logout" userNameSubject=userNameSubject}}
   </nav>
-  {{logged-in-info action="logout" userNameSubject=userNameSubject}}
 </div>

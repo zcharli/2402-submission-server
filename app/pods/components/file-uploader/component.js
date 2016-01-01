@@ -8,8 +8,6 @@ export default EmberUploader.FileField.extend({
     return extRegex.test(filename);
   },
   filesDidChange: function(files) {
-    console.log(files);
-    console.log(files.length);
 
     if (files.length !== 1 || !this.get("checkUploadFile").call(this, files[0].name)) {
       this.sendAction("uploadError", 2);
@@ -28,8 +26,6 @@ export default EmberUploader.FileField.extend({
       currentUser.secretKey,
       self = this;
 
-    console.log(uploadUrl);
-
     var uploader = EmberUploader.Uploader.create({
       url: uploadUrl,
       paramName: 'submission',
@@ -47,20 +43,17 @@ export default EmberUploader.FileField.extend({
 
       uploader.on('didUpload', function(e) {
         // Handle finished upload
-        console.log("didUpload");
         self.sendAction("uploadCallback", null);
       });
 
       uploader.on('didError', function(jqXHR, textStatus, errorThrown) {
         // Handle unsuccessful upload
-        console.log("didError");
         self.sendAction("uploadCallback", errorThrown);
       });
 
       promise.then(function(data) {
         // Handle success
         data["successCode"] = 2002;
-        console.log("promise returned");
         self.sendAction("markingCompletedCallback", data);
       }, function(error) {
         //Handle failure
