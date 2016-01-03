@@ -36,6 +36,9 @@ export default Ember.Mixin.create({
         retString = "Marking Error";
         break;
       case 1010:
+        retString = "File system error";
+        break;
+      case 1011:
         retString = "Deadline has passed";
         break;
       default:
