@@ -48,7 +48,6 @@ export default Ember.Controller.extend(ResponseErrorMixin, HtmlHelpers, {
 
   displayPastDeadlineMessage: Ember.computed("pastDeadline", function() {
     var assignmentOverdue = this.get("pastDeadline");
-    console.log(assignmentOverdue);
     if (assignmentOverdue) {
       this.set("displayCountDown", "");
       this.get('enableDisableFileUploader').call(this, false);
@@ -109,7 +108,6 @@ export default Ember.Controller.extend(ResponseErrorMixin, HtmlHelpers, {
       _hour = _minute * 60,
       _day = _hour * 24,
       self = this;
-      console.log("Enable new countDown");
 
     var printer = function(d,h,m,s) {
       return d+"days "+h+"hrs "+m+"mins "+s+"secs";
@@ -255,7 +253,6 @@ export default Ember.Controller.extend(ResponseErrorMixin, HtmlHelpers, {
       } else {
         Materialize.toast("Your assignment has been marked!", 3000);
         this.set("markingError", "");
-        console.log(result);
         if (result.data && result.data.hasOwnProperty("markingLog")) {
           this.set("markingResult", this.get('htmlEntities').call(this, result.data.markingLog.join(" ")));
         } else {
