@@ -14,6 +14,9 @@ export default Ember.Controller.extend(ResponseErrorMixin, HtmlHelpers, {
   currentGrade: null,
   enableEmailPrepareSpinner: false,
   pastDeadline: false,
+  deadLineDate: null,
+  displayCountDown: "",
+  countDownTimer: null,
 
   assignmentSubmissionRestRoute: Ember.computed("assignmentNumber", function() {
     return "a" + this.get('assignmentNumber');
@@ -45,11 +48,14 @@ export default Ember.Controller.extend(ResponseErrorMixin, HtmlHelpers, {
 
   displayPastDeadlineMessage: Ember.computed("pastDeadline", function() {
     var assignmentOverdue = this.get("pastDeadline");
-    if(assignmentOverdue) {
+    console.log(assignmentOverdue);
+    if (assignmentOverdue) {
+      this.set("displayCountDown", "");
       this.get('enableDisableFileUploader').call(this, false);
       return new Ember.Handlebars.SafeString("<div style='color:red'>Due date has passed</div>");
     } else {
       this.get('enableDisableFileUploader').call(this, true);
+      this.get('startCountdown').call(this);
       return "";
     }
   }),
@@ -96,20 +102,51 @@ export default Ember.Controller.extend(ResponseErrorMixin, HtmlHelpers, {
     return new Ember.Handlebars.SafeString(this.get('uploadError'));
   }),
 
+  startCountdown: function() {
+    var dueDate = this.get("deadLineDate"),
+      _second = 1000,
+      _minute = _second * 60,
+      _hour = _minute * 60,
+      _day = _hour * 24,
+      self = this;
+      console.log("Enable new countDown");
+
+    var printer = function(d,h,m,s) {
+      return d+"days "+h+"hrs "+m+"mins "+s+"secs";
+    };
+
+    var showRemaining = function() {
+      var now = new Date();
+      var distance = dueDate - now;
+
+      if (distance < 0) {
+        clearInterval(this.get("countDownTimer"));
+        self.set("pastDeadline", true);
+        return;
+      }
+      var days = Math.floor(distance / _day);
+      var hours = Math.floor((distance % _day) / _hour);
+      var minutes = Math.floor((distance % _hour) / _minute);
+      var seconds = Math.floor((distance % _minute) / _second);
+      self.set("displayCountDown", printer(days,hours,minutes,seconds));
+    };
+    this.set("countDownTimer", setInterval(showRemaining, 1000));
+    
+  },
   resetForm: function() {
     // Used to remvoe the form name and reset for next upload
     Ember.$(".filepicker form").trigger("reset");
   },
   enableDisableFileUploader: function(enable) {
-    if(enable) {
+    if (enable) {
       Ember.run.scheduleOnce('afterRender', this, function() {
-        Ember.$(".filepicker form input").prop("disabled",false);
-        Ember.$(".filepicker form input").css("opacity",1);
+        Ember.$(".filepicker form input").prop("disabled", false);
+        Ember.$(".filepicker form input").css("opacity", 1);
       });
     } else {
       Ember.run.scheduleOnce('afterRender', this, function() {
-        Ember.$(".filepicker form input").prop("disabled",true);
-        Ember.$(".filepicker form input").css("opacity",0.3);
+        Ember.$(".filepicker form input").prop("disabled", true);
+        Ember.$(".filepicker form input").css("opacity", 0.3);
       });
     }
   },
@@ -218,8 +255,8 @@ export default Ember.Controller.extend(ResponseErrorMixin, HtmlHelpers, {
       } else {
         Materialize.toast("Your assignment has been marked!", 3000);
         this.set("markingError", "");
-        console.log(result); 
-        if(result.data && result.data.hasOwnProperty("markingLog")) {
+        console.log(result);
+        if (result.data && result.data.hasOwnProperty("markingLog")) {
           this.set("markingResult", this.get('htmlEntities').call(this, result.data.markingLog.join(" ")));
         } else {
           this.set("markingResult", "Was not able to get results at this time.");

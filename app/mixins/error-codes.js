@@ -32,6 +32,12 @@ export default Ember.Mixin.create({
       case 1008:
         retString = "Unable to find mark for student";
         break;
+      case 1009:
+        retString = "Marking Error";
+        break;
+      case 1010:
+        retString = "Deadline has passed";
+        break;
       default:
         retString = "No error code found";
         break;
