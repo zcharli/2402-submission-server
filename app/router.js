@@ -8,11 +8,15 @@ const Router = Ember.Router.extend({
 Router.map(function() {
   this.route('ranks', function() {});
   this.route('submission', function() {
-    this.route('assignment',{path:'assignment/:assignmentNumber'});
+    this.route('assignment', {path:'assignment/:assignmentNumber'}, function() {
+      
+    });
+    this.route('error');
   });
   this.route('account', function() {
     this.route('new');
   });
+  this.route('e');
 });
 
 export default Router;

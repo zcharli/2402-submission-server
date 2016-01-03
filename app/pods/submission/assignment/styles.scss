@@ -12,6 +12,10 @@
   font-weight: initial;
 }
 
+.square {
+  border-radius: 0px !important; 
+}
+
 input[type="file"]::-webkit-file-upload-button {
   text-decoration: none;
   background-color: #26a69a;

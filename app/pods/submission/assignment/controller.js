@@ -13,9 +13,10 @@ export default Ember.Controller.extend(ResponseErrorMixin, HtmlHelpers, {
   showResults: false,
   currentGrade: null,
   enableEmailPrepareSpinner: false,
+  pastDeadline: false,
 
   assignmentSubmissionRestRoute: Ember.computed("assignmentNumber", function() {
-    return "assignment" + this.get('assignmentNumber');
+    return "a" + this.get('assignmentNumber');
   }),
 
   assignmentNumber: Ember.computed("model", function() {
@@ -42,6 +43,16 @@ export default Ember.Controller.extend(ResponseErrorMixin, HtmlHelpers, {
     }
   }),
 
+  displayPastDeadlineMessage: Ember.computed("pastDeadline", function() {
+    var assignmentOverdue = this.get("pastDeadline");
+    if(assignmentOverdue) {
+      this.get('enableDisableFileUploader').call(this, false);
+      return new Ember.Handlebars.SafeString("<div style='color:red'>Due date has passed</div>");
+    } else {
+      this.get('enableDisableFileUploader').call(this, true);
+      return "";
+    }
+  }),
   displayAssignmentNumber: Ember.computed("assignmentNumber", function() {
     var assignmentNumber = this.get("assignmentNumber");
     if (/\x$/g.test(assignmentNumber)) {
@@ -89,8 +100,19 @@ export default Ember.Controller.extend(ResponseErrorMixin, HtmlHelpers, {
     // Used to remvoe the form name and reset for next upload
     Ember.$(".filepicker form").trigger("reset");
   },
-
-
+  enableDisableFileUploader: function(enable) {
+    if(enable) {
+      Ember.run.scheduleOnce('afterRender', this, function() {
+        Ember.$(".filepicker form input").prop("disabled",false);
+        Ember.$(".filepicker form input").css("opacity",1);
+      });
+    } else {
+      Ember.run.scheduleOnce('afterRender', this, function() {
+        Ember.$(".filepicker form input").prop("disabled",true);
+        Ember.$(".filepicker form input").css("opacity",0.3);
+      });
+    }
+  },
 
   findGradeFromResult: function(resultText) {
     var grade = 0;
@@ -196,7 +218,12 @@ export default Ember.Controller.extend(ResponseErrorMixin, HtmlHelpers, {
       } else {
         Materialize.toast("Your assignment has been marked!", 3000);
         this.set("markingError", "");
-        this.set("markingResult", this.get('htmlEntities').call(this, result.data.markingLog.join(" ")));
+        console.log(result); 
+        if(result.data && result.data.hasOwnProperty("markingLog")) {
+          this.set("markingResult", this.get('htmlEntities').call(this, result.data.markingLog.join(" ")));
+        } else {
+          this.set("markingResult", "Was not able to get results at this time.");
+        }
 
         var markingGrade = result.data.student.grades["a" + this.get("assignmentNumber")];
         //this.get('findGradeFromResult').call(this, result.data.markingLog);

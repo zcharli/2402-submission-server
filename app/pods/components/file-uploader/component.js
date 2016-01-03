@@ -8,7 +8,6 @@ export default EmberUploader.FileField.extend({
     return extRegex.test(filename);
   },
   filesDidChange: function(files) {
-
     if (files.length !== 1 || !this.get("checkUploadFile").call(this, files[0].name)) {
       this.sendAction("uploadError", 2);
       return;

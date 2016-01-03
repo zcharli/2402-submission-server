@@ -8,9 +8,8 @@ export default Ember.Controller.extend({
     var token = cookie.getCookie('secretKey');
     var loggedIn = true;
     var localStorage = this.get("local-storage");
-
+    var self = this;
     if (!token) {
-      console.log("Token Missing from assignment route");
       loggedIn = false;
       localStorage.delete("currentUser");
       return;
@@ -24,6 +23,18 @@ export default Ember.Controller.extend({
         expires: 1
       });
     }
+    Ember.$.ajax({
+        url: self.get('rest-api').getHost() + "/deadlines",
+        crossDomain: true,
+        error: function() {
+          Materialize.toast("<div style='color:red'>Server Error on getting deadlines</div>", 3000);
+        },
+        dataType: 'json',
+        success: function(response) {
+          localStorage.add("deadlines", response);
+        },
+        type: 'GET'
+      });
   }.on('init'),
   actions: {
     logoutUserFromApp: function() {
