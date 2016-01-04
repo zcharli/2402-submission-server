@@ -43,14 +43,14 @@ export default Ember.Controller.extend(ResponseErrorMixin, {
         },
         crossDomain: true,
         error: function() {
-          Materialize.toast("<div style='color:red'>The key you entered was invalid!</div>", 3000);
+          Materialize.toast("<div style='color:red'><i class='material-icons left'>error_outline</i> The key you entered was invalid!</div>", 3000);
         },
         dataType: 'json',
         success: function(response) {
 
           if (!self.get("checkResponseSuccessful").call(self, response)) {
             var retString = self.get("getErrorString").call(self, response);
-            Materialize.toast("<div style='color:red'>Server error: " + retString + "</div>", 3000);
+            Materialize.toast("<div style='color:red'><i class='material-icons left'>error_outline</i> Server error: " + retString + "</div>", 3000);
             return;
           }
           var responseData = response.data.student,
@@ -66,7 +66,7 @@ export default Ember.Controller.extend(ResponseErrorMixin, {
           var cookie = self.get("cookie");
           // Replace the current localstorage with 
           self.get('local-storage').add("currentUser", student);
-          Materialize.toast("Welcome :)", 3000);
+          Materialize.toast("<i class='material-icons left'>perm_identity</i> Welcome", 3000);
           self.set('applicationController.userLoggedIn', student.email);
           cookie.setCookie("secretKey", student.secretKey).then(function() {
             self.transitionToRoute("submission");

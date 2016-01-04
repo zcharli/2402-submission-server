@@ -9,6 +9,20 @@ export default Ember.Controller.extend({
     var loggedIn = true;
     var localStorage = this.get("local-storage");
     var self = this;
+
+    Ember.$.ajax({
+        url: self.get('rest-api').getHost() + "/deadlines",
+        crossDomain: true,
+        error: function() {
+          Materialize.toast("<div style='color:red'><i class='material-icons left'>error_outline</i> Server Error on getting deadlines.</div>", 3000);
+        },
+        dataType: 'json',
+        success: function(response) {
+          localStorage.add("deadlines", response);
+        },
+        type: 'GET'
+      });
+
     if (!token) {
       loggedIn = false;
       localStorage.delete("currentUser");
@@ -23,18 +37,6 @@ export default Ember.Controller.extend({
         expires: 1
       });
     }
-    Ember.$.ajax({
-        url: self.get('rest-api').getHost() + "/deadlines",
-        crossDomain: true,
-        error: function() {
-          Materialize.toast("<div style='color:red'>Server Error on getting deadlines</div>", 3000);
-        },
-        dataType: 'json',
-        success: function(response) {
-          localStorage.add("deadlines", response);
-        },
-        type: 'GET'
-      });
   }.on('init'),
   actions: {
     logoutUserFromApp: function() {

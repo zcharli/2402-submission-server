@@ -25,7 +25,7 @@ export default Ember.Component.extend({
       Ember.$("#input-secret-key").addClass("invalid");
 
       /* jshint ignore:start */
-      Materialize.toast("<div style='color:red'>The key you entered was invalid!</div>", 3000);
+      Materialize.toast("<div style='color:red'><i class='material-icons left'>error_outline</i> The key you entered was invalid!</div>", 3000);
       /* jshint ignore:end */
     }
   }

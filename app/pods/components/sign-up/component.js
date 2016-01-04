@@ -55,9 +55,9 @@ export default Ember.Component.extend(ResponseErrorMixin, {
         this.sendAction("submitRequestForSecretKey", userObj, function(result) {
             if (!self.get('checkResponseSuccessful').call(self, result)) {
               var errorMessage = self.get('getErrorString').call(self, result);
-              Materialize.toast("<div style='color:red'>Server error: " + errorMessage + "</div>", 3000);
+              Materialize.toast("<div style='color:red'><i class='material-icons left'>error_outline</i> Server error: " + errorMessage + "</div>", 3000);
             } else {
-              var message = "The secret key was successfully generated and sent to your email: " + result.data.email +
+              var message = "<i class='material-icons left'>email</i> The secret key was successfully generated and sent to your email: " + result.data.email +
                 "@cmail.carleton.ca";
               Materialize.toast(message, 3000);
             }

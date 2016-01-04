@@ -3,17 +3,36 @@
   	<div class="nav-wrapper">
       {{#link-to 'application'}}
         <img id="carleton-logo" src="./images/carleton-logo-white-blur.png"/>
-        <div class="brand-logo" id="ds-algo-title">Data Structures &amp; Algorithms Submission Server </div>
+        <div class="brand-logo hide-on-med-and-up" id="ds-algo-title-small">DS &amp; A Submission Server </div>
+        <div class="brand-logo hide-on-small-only" id="ds-algo-title">Data Structures &amp; Algorithms Submission Server </div>
+
       {{/link-to}}
       <a href="#" data-activates="mobile-mode" class="button-collapse"><i class="large material-icons">menu</i></a>
   	  <ul id="nav-mobile" class="right hide-on-med-and-down">
-  	    <li>{{#link-to 'submission.index'}}Submission{{/link-to}}</li>
-  	    <li>{{#link-to 'ranks.index'}}Rankings{{/link-to}}</li>
+  	    <li>{{#link-to 'submission.index'}}Submission <i class="material-icons right">
+assignment</i>{{/link-to}}</li>
+  	    <li>{{#link-to 'ranks.index'}}Rankings <i class="material-icons right">
+grade</i>{{/link-to}}</li>
   	  </ul>
       {{!-- Mobile Side Menu Below --}}
       <ul class="side-nav" id="mobile-mode">
-        <li>{{#link-to 'submission.index'}}Submission{{/link-to}}</li>
-        <li>{{#link-to 'ranks.index'}}Rankings{{/link-to}}</li>
+        <li>{{#link-to 'submission.index'}}Submission <i class="material-icons right">
+assignment</i>{{/link-to}}</li>
+        <li>{{#link-to 'ranks.index'}}Rankings <i class="material-icons right">
+grade</i>{{/link-to}}</li>
+
+
+        <li>{{#link-to 'submission.assignment' 1 class="hide-on-large-only "}}Assignment 1{{/link-to}}</li>
+        <li>{{#link-to 'submission.assignment' 2  class="hide-on-large-only a2"}}Assignment 2{{/link-to}}</li>
+        <li>{{#link-to 'submission.assignment' "2x"  class="hide-on-large-only a2x"}}Assignment 2 X{{/link-to}}</li>
+        <li>{{#link-to 'submission.assignment'3   class="hide-on-large-only a3"}}Assignment 3{{/link-to}}</li>
+        <li>{{#link-to 'submission.assignment' "3x"  class="hide-on-large-only a3x"}}Assignment 3 X{{/link-to}}</li>
+
+        <li>{{#link-to 'submission.assignment' 4  class="hide-on-large-only a4"}}Assignment 4{{/link-to}}</li>
+        <li>{{#link-to 'submission.assignment' "4x"  class="hide-on-large-only a4x"}}Assignment 4 X{{/link-to}}</li>
+
+        <li>{{#link-to 'submission.assignment' 5  class="hide-on-large-only a5"}}Assignment 5{{/link-to}}</li>
+        <li>{{#link-to 'submission.assignment' "5x"  class="hide-on-large-only a5x"}}Assignment 5 X{{/link-to}}</li>
       </ul>
   	</div>
     <div style="clear:both;"></div>

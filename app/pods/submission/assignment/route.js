@@ -45,7 +45,10 @@ export default Ember.Route.extend({
           controller.set("countDownTimer",null);
         }
       } else {
-        Materialize.toast("<div style='color:red'>Failed to find deadlines for assignment. Contact professor");
+        controller.set("countDownTimer",null);
+        controller.set("pastDeadline", false);
+        controller.set("deadLineDate", null);
+        Materialize.toast("<div style='color:red'><i class='material-icons left'>error_outline</i> Failed to find deadlines for assignment. Contact professor");
       }
       
       Ember.run.scheduleOnce('afterRender', this, function() {
@@ -87,7 +90,10 @@ export default Ember.Route.extend({
   },
   actions: {
     willTransition: function() {
-      clearInterval(this.controller.get("countDownTimer"));
+      var timer = this.controller.get("countDownTimer");
+      if(timer) {
+        clearInterval(this.controller.get("countDownTimer"));
+      }
       this.controller.set("countDownTimer", null);
       this.controller.set("pastDeadline", null);
     }

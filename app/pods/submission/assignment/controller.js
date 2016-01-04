@@ -51,7 +51,7 @@ export default Ember.Controller.extend(ResponseErrorMixin, HtmlHelpers, {
     if (assignmentOverdue) {
       this.set("displayCountDown", "");
       this.get('enableDisableFileUploader').call(this, false);
-      return new Ember.Handlebars.SafeString("<div style='color:red'>Due date has passed</div>");
+      return new Ember.Handlebars.SafeString("<div style='color:red'>Due date has passed <i class='material-icons right'>assignment_late</i></div>");
     } else {
       this.get('enableDisableFileUploader').call(this, true);
       this.get('startCountdown').call(this);
@@ -128,8 +128,12 @@ export default Ember.Controller.extend(ResponseErrorMixin, HtmlHelpers, {
       var seconds = Math.floor((distance % _minute) / _second);
       self.set("displayCountDown", printer(days,hours,minutes,seconds));
     };
-    this.set("countDownTimer", setInterval(showRemaining, 1000));
-    
+
+    if(dueDate) {
+      // Now the timer will not go off if any error occurs while getting the
+      // deadlines
+      this.set("countDownTimer", setInterval(showRemaining, 1000));
+    }
   },
   resetForm: function() {
     // Used to remvoe the form name and reset for next upload
@@ -167,18 +171,18 @@ export default Ember.Controller.extend(ResponseErrorMixin, HtmlHelpers, {
       switch (errorCode) {
         case 1:
           // Not logged in/no user storage
-          Materialize.toast("<div style='color:red'>Please login first.</div>", 3000);
+          Materialize.toast("<div style='color:red'><i class='material-icons left'>error_outline</i> Please login first.</div>", 3000);
 
           this.transitionToRoute("application");
           break;
         case 2:
           // Not a zip file
-          Materialize.toast("<div style='color:red'>You must upload a zip file!</div>", 3000);
+          Materialize.toast("<div style='color:red'><i class='material-icons left'>error_outline</i> You must upload a zip file!</div>", 3000);
 
           break;
         default:
           // Unknown
-          Materialize.toast("<div style='color:red'>An error occured on the client side during upload!</div>", 3000);
+          Materialize.toast("<div style='color:red'><i class='material-icons left'>error_outline</i> An error occured on the client side during upload!</div>", 3000);
 
           break;
       }
@@ -201,15 +205,15 @@ export default Ember.Controller.extend(ResponseErrorMixin, HtmlHelpers, {
         //   withCredentials: true
         // },
         error: function() {
-          Materialize.toast("<div style='color:red'>Server error while sending results to you.</div>", 3000);
+          Materialize.toast("<div style='color:red'><i class='material-icons left'>error_outline</i> Server error while sending results to you.</div>", 3000);
         },
         dataType: 'json',
         success: function(results) {
           if (!self.get('checkResponseSuccessful').call(self, results)) {
             var errorMessage = self.get('getErrorString').call(self, results);
-            Materialize.toast("<div style='color:red'>Server error: " + errorMessage + ".</div>", 3000);
+            Materialize.toast("<div style='color:red'><i class='material-icons left'>error_outline</i> Server error: " + errorMessage + ".</div>", 3000);
           } else {
-            var message = "The email was successfully sent to " + results.data.email;
+            var message = "<i class='material-icons left'>email</i> The email was successfully sent to " + results.data.email;
             Materialize.toast(message, 3000);
           }
           self.set("enableEmailPrepareSpinner", false);
@@ -224,10 +228,10 @@ export default Ember.Controller.extend(ResponseErrorMixin, HtmlHelpers, {
     uploadCompleted: function(error) {
       // Catches success and fail case of upload
       if (error) {
-        Materialize.toast("<div style='color:red'>Assignment upload error!</div>", 3000);
+        Materialize.toast("<div style='color:red'><i class='material-icons left'>error_outline</i> Assignment upload error!</div>", 3000);
         this.set("uploadError", error);
       } else {
-        Materialize.toast("Upload has successfull completed!", 3000);
+        Materialize.toast("<i class='material-icons left'>thumb_up</i> Upload has successfull completed!", 3000);
         this.set("uploadError", "");
       }
       this.set("markingHappening", false);
@@ -239,7 +243,7 @@ export default Ember.Controller.extend(ResponseErrorMixin, HtmlHelpers, {
       // Catches success and fail case of marking completion
       if (!this.get('checkResponseSuccessful').call(this, result)) {
         var message = this.get("getErrorString").call(this, result);
-        Materialize.toast("<div style='color:red'>Assignment marking error: " + message + "</div>", 3000);
+        Materialize.toast("<div style='color:red'><i class='material-icons left'>error_outline</i> Assignment marking error: " + message + "</div>", 3000);
 
         if (!result.hasOwnProperty("statusText")) {
           result.statusText = "Error: " + result.responseCode;
@@ -251,7 +255,7 @@ export default Ember.Controller.extend(ResponseErrorMixin, HtmlHelpers, {
         this.set("markingGrade", "");
         this.set("markingError", result);
       } else {
-        Materialize.toast("Your assignment has been marked!", 3000);
+        Materialize.toast("<i class='material-icons left'>thumb_up</i> Your assignment has been marked!", 3000);
         this.set("markingError", "");
         if (result.data && result.data.hasOwnProperty("markingLog")) {
           this.set("markingResult", this.get('htmlEntities').call(this, result.data.markingLog.join(" ")));

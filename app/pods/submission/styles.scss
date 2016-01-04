@@ -19,11 +19,6 @@
   width: 100%;
 }
 
-.content-section-padding {
-  padding-right: 270px;
-  //padding-left: 20px;
-}
-
 .submission-sidebar-text {
   // Text css
   text-transform: uppercase;
@@ -75,7 +70,22 @@
   }
 }
 
+.content-section-padding {
+  padding-right: 270px;
+
+  @media #{$medium-and-down} {
+    // styles for medium screens and down
+    margin-left: initial; 
+    padding-right: initial;
+  }
+  //padding-left: 20px;
+}
 .submission-content {
+ @media #{$medium-and-down} {
+    // styles for medium screens and down
+    margin-left: initial; 
+    padding-top:30px;
+  }
   @extend .content-section-padding;
   padding-top:18px;
   height: 100%;
@@ -83,6 +93,7 @@
   margin-left: 240px;
   font-weight: lighter;
   font-size: x-large;
+
   
   h4.content-title {
     padding-top: 32px;

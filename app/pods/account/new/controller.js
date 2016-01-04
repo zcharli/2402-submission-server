@@ -7,9 +7,9 @@ export default Ember.Controller.extend(ResponseErrorMixin, {
   successAjaxCall: function(result) {
     if (!this.get('checkResponseSuccessful').call(this, result)) {
       var errorMessage = this.get('getErrorString').call(this, result);
-      Materialize.toast("<div style='color:red'>Server error: " + errorMessage + "</div>", 3000);
+      Materialize.toast("<div style='color:red'><i class='material-icons left'>error_outline</i> Server error: " + errorMessage + "</div>", 3000);
     } else {
-      var message = "The secret key was successfully generated and sent to your email: " + result.data.email;
+      var message = "<i class='material-icons left'>thumb_up</i> The secret key was successfully generated and sent to your email: " + result.data.email;
       Materialize.toast(message, 3000);
     }
   },

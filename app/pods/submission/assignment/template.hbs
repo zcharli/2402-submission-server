@@ -6,10 +6,10 @@
 
 <div class="row">
   <div class="row">
-    <div class="col s3">
+    <div class="col s12 m3 l3">
       <div class="chip square">{{displayBestGrade}}</div>
     </div>
-    <div class="col s9">{{displayPastDeadlineMessage}} {{displayCountDown}}</div>
+    <div class="col s12 m9 l9">{{displayPastDeadlineMessage}} {{displayCountDown}}</div>
   </div>
   <div class="row">
     <div class="col s12">
@@ -66,7 +66,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col s4 offset-s4">
+        <div class="col s12 m4 offset-m4 l4 offset-l4">
           Marking... Please wait
         </div>
       </div>
@@ -75,10 +75,10 @@
     <div class="row" style={{assignmentHasBeenMarked}}>
       <div class="row">
         <div class="row">
-          <div class="col s8">
+          <div class="col l7 m7 s12">
             <div id="grade">{{displayMarkingGrade}}</div>
           </div>
-          <div class="col s4">
+          <div class="col l5 m5 s12">
             <div class='send-results'>
 
               {{spinner-button action="sendResultsToStudentEmail" text="Send Results" loadingSubject=enableEmailPrepareSpinner}}
@@ -89,8 +89,8 @@
       </div>
     </div>
 
-        <div class="col s12 marking">
-            <span style="white-space: pre-line">{{displayMarkingResult}}</span>
+        <div class="col s12">
+            <span style="white-space: pre-line; font-size:initial">{{displayMarkingResult}}</span>
         </div>
       </div>
 
