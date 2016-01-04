@@ -21,6 +21,7 @@ export default Ember.Controller.extend({
           localStorage.add("deadlines", response);
         },
         type: 'GET'
+        //async: false
       });
 
     if (!token) {

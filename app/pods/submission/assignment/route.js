@@ -24,6 +24,8 @@ export default Ember.Route.extend({
       var assignmentKey = "a"+model.assignmentNumber;
       var currentUser = localStorage.get("currentUser");
       var grades = currentUser.grades[assignmentKey];
+      controller.set("storage",localStorage);
+
       if(grades) {
         controller.set("currentGrade", grades);
       } else {
@@ -32,6 +34,7 @@ export default Ember.Route.extend({
 
       var deadlines = localStorage.get("deadlines"),
           today = new Date();
+
       if(deadlines) {
         var thisDeadline = deadlines[assignmentKey];
         var deadLineDate = new Date(thisDeadline);

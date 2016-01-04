@@ -4,6 +4,7 @@ export default Ember.Object.extend({
   // localstorage can onyl store strings but we can get around that by 
   // stringify any js data structure and then parse it after
   // Do not try to put everything into local storage, it has a 5MB limit
+  deadlines: null,
   exists: function(key) {
     if (!Ember.isNone(key) && !Ember.isNone(localStorage[key])) {
       return true;
@@ -20,13 +21,15 @@ export default Ember.Object.extend({
   add: function(key, value) {
     if (!Ember.isNone(key) && !Ember.isNone(value)) {
       localStorage[key] = JSON.stringify(value);
+      Ember.set(this,"deadlines",JSON.stringify(value));
+      this.notifyPropertyChange(key);
     }
   },
   update: function(key, value) {
     if (!Ember.isNone(key) && !Ember.isNone(localStorage[key]) && !Ember.isNone(value)) {
       localStorage.setItem(key, JSON.stringify(value));
     }
-    //this.notifyPropertyChange(key);
+    this.notifyPropertyChange(key);
   },
   delete: function(key) {
     if (!Ember.isNone(key)) {

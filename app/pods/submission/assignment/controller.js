@@ -14,9 +14,26 @@ export default Ember.Controller.extend(ResponseErrorMixin, HtmlHelpers, {
   currentGrade: null,
   enableEmailPrepareSpinner: false,
   pastDeadline: false,
-  deadLineDate: null,
   displayCountDown: "",
   countDownTimer: null,
+  storage: null,
+  deadLineDate: null,
+
+  deadLineDateObserver: function() {
+    var localStorage = this.get("storage"),
+        deadlines = localStorage.get("deadlines"),
+        assignmentNumber = this.get("assignmentNumber");
+    var dueDate = new Date(deadlines["a"+assignmentNumber]);
+    var today = new Date();
+    if(today > dueDate) {
+      this.set("pastDeadline", true);
+    } else {
+      this.set("pastDeadline", false);
+    }
+    this.set("deadLineDate",new Date(dueDate));
+
+  }.observes("storage.deadlines"),
+
 
   assignmentSubmissionRestRoute: Ember.computed("assignmentNumber", function() {
     return "a" + this.get('assignmentNumber');
@@ -51,7 +68,7 @@ export default Ember.Controller.extend(ResponseErrorMixin, HtmlHelpers, {
     if (assignmentOverdue) {
       this.set("displayCountDown", "");
       this.get('enableDisableFileUploader').call(this, false);
-      return new Ember.Handlebars.SafeString("<div style='color:red'>Due date has passed <i class='material-icons right'>assignment_late</i></div>");
+      return new Ember.Handlebars.SafeString("<div style='color:red'><i class='material-icons left' style='padding-top:7px'>assignment_late</i> Due date has passed </div>");
     } else {
       this.get('enableDisableFileUploader').call(this, true);
       this.get('startCountdown').call(this);
@@ -108,7 +125,6 @@ export default Ember.Controller.extend(ResponseErrorMixin, HtmlHelpers, {
       _hour = _minute * 60,
       _day = _hour * 24,
       self = this;
-
     var printer = function(d,h,m,s) {
       return d+"days "+h+"hrs "+m+"mins "+s+"secs";
     };
