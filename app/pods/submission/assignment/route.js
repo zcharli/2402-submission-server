@@ -99,6 +99,7 @@ export default Ember.Route.extend({
       }
       this.controller.set("countDownTimer", null);
       this.controller.set("pastDeadline", null);
+      this.controller.set("displayCountDown", "");
     }
   }
 });

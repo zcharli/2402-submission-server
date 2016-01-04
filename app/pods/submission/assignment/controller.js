@@ -27,6 +27,11 @@ export default Ember.Controller.extend(ResponseErrorMixin, HtmlHelpers, {
     var today = new Date();
     if(today > dueDate) {
       this.set("pastDeadline", true);
+      var countDownTimer = this.get('countDownTimer');
+      if(countDownTimer) {
+        clearInterval(countDownTimer);
+        this.set("displayCountDown", "");
+      }
     } else {
       this.set("pastDeadline", false);
     }
