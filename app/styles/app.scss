@@ -12,10 +12,12 @@
 @import "../../../app/pods/components/sign-in/styles";
 @import "../../../app/pods/components/sign-up/styles";
 @import "../../../app/pods/components/logged-in-info/styles";
+@import "../../../app/pods/components/your-ranking/styles";
 
 // Page route styles
 @import "../../../app/pods/submission/styles";
 @import "../../../app/pods/ranks/styles";
+@import "../../../app/pods/ranks/index/styles";
 
 // Variables and Settings
 @import "./_base.scss";

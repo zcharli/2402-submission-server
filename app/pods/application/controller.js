@@ -2,7 +2,10 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
   // needs: [],
-  userLoggedIn: "",
+  userLoggedIn: "", 
+  assignmentObjectArray: [],
+
+
   initApplication: function() {
     var cookie = this.get("cookie");
     var token = cookie.getCookie('secretKey');
@@ -19,6 +22,7 @@ export default Ember.Controller.extend({
         dataType: 'json',
         success: function(response) {
           localStorage.add("deadlines", response);
+          self.set("assignmentObjectArray", response);
         },
         type: 'GET'
         //async: false

@@ -20,9 +20,13 @@ grade</i>{{/link-to}}</li>
 assignment</i>{{/link-to}}</li>
         <li>{{#link-to 'ranks.index'}}Rankings <i class="material-icons right">
 grade</i>{{/link-to}}</li>
+        
 
+        {{#each assignment in assignmentObjectArray}}
+          <li>{{#link-to 'submission.assignment' assignment.route class="hide-on-large-only" }}{{assignment.title}}{{/link-to}}</li>
+        {{/each}}
 
-        <li>{{#link-to 'submission.assignment' 1 class="hide-on-large-only "}}Assignment 1{{/link-to}}</li>
+        {{!-- <li>{{#link-to 'submission.assignment' 1 class="hide-on-large-only "}}Assignment 1{{/link-to}}</li>
         <li>{{#link-to 'submission.assignment' 2  class="hide-on-large-only a2"}}Assignment 2{{/link-to}}</li>
         <li>{{#link-to 'submission.assignment' "2x"  class="hide-on-large-only a2x"}}Assignment 2 X{{/link-to}}</li>
         <li>{{#link-to 'submission.assignment'3   class="hide-on-large-only a3"}}Assignment 3{{/link-to}}</li>
@@ -32,7 +36,7 @@ grade</i>{{/link-to}}</li>
         <li>{{#link-to 'submission.assignment' "4x"  class="hide-on-large-only a4x"}}Assignment 4 X{{/link-to}}</li>
 
         <li>{{#link-to 'submission.assignment' 5  class="hide-on-large-only a5"}}Assignment 5{{/link-to}}</li>
-        <li>{{#link-to 'submission.assignment' "5x"  class="hide-on-large-only a5x"}}Assignment 5 X{{/link-to}}</li>
+        <li>{{#link-to 'submission.assignment' "5x"  class="hide-on-large-only a5x"}}Assignment 5 X{{/link-to}}</li> --}}
       </ul>
   	</div>
     <div style="clear:both;"></div>

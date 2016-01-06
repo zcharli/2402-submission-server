@@ -33,7 +33,7 @@ export default Ember.Mixin.create({
         retString = "Unable to find mark for student";
         break;
       case 1009:
-        retString = "Marking Error, maybe wait 5 minutes till your next submission";
+        retString = "Marking Error";
         break;
       case 1010:
         retString = "File system error";
