@@ -15,9 +15,10 @@ export default Ember.Route.extend({
     var deadlines = localStorage.get('deadlines');
     for(var key in deadlines) {
       if(deadlines.hasOwnProperty(key)) {
-        validRoutes.push(key);
+        validRoutes.push(deadlines[key].routeParam);
       }
     }
+    console.log(validRoutes);
     return validRoutes;
   }.property(),//['1', '2', '2x', '3', '3x', '4', '4x', '5', '5x'],
   setupController: function(controller, model) {
