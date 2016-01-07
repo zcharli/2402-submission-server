@@ -1,1 +1,19 @@
-{{yield}}
+ <ul class="collapsible" data-collapsible="expandable">
+  {{#each displayAssignmentObjectArray as |assignment|}}
+    <li>
+      <div class="collapsible-header"><i class="material-icons">assignment_ind</i>{{assignment.title}}</div>
+      <div class="collapsible-body">
+        {{your-ranking.rank-trophy ranked=assignment.rank
+                                   totalStudentsInRanking=assignment.totalNumber
+                                   }}
+      </div>
+    </li>
+
+
+  {{else}}
+    <div class="collapsible-header"><i class="material-icons">error_outline</i>No assignments</div>
+    <div class="collapsible-body">Either the instructor did not showcase any assignment yet or you need to update your browser. </div>
+  {{/each}}
+    
+   
+  </ul>

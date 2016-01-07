@@ -18,7 +18,6 @@ export default Ember.Route.extend({
         validRoutes.push(deadlines[key].routeParam);
       }
     }
-    console.log(validRoutes);
     return validRoutes;
   }.property(),//['1', '2', '2x', '3', '3x', '4', '4x', '5', '5x'],
   setupController: function(controller, model) {

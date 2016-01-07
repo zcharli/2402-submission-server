@@ -74,6 +74,10 @@ assignmentCurrentlyBeingMarked: Ember.computed("markingHappening", function() {
   }
 }),
 
+
+displayAssignmentZipFileName: Ember.computed("assignmentNumber", function() {
+  return "comp2402a"+this.get('assignmentNumber')+ ".zip";
+}),
 displayPastDeadlineMessage: Ember.computed("pastDeadline", function() {
   var assignmentOverdue = this.get("pastDeadline");
   if (assignmentOverdue) {
@@ -204,7 +208,8 @@ actions: {
         break;
       case 2:
         // Not a zip file
-        Materialize.toast("<div style='color:red'><i class='material-icons left'>error_outline</i> You must upload a zip file!</div>", 3000);
+        var message = "You must upload a zip file named "+this.get("displayAssignmentZipFileName")+"!";
+        Materialize.toast("<div style='color:red'><i class='material-icons left'>error_outline</i> "+message+"</div>", 3000);
 
         break;
       default:
@@ -271,10 +276,9 @@ actions: {
     if (!this.get('checkResponseSuccessful').call(this, result)) {
       var message = this.get("getErrorString").call(this, result);
       Materialize.toast("<div style='color:red'><i class='material-icons left'>error_outline</i> Assignment marking error: " + message + "</div>", 3000);
-      console.log(result);
       if (!result.hasOwnProperty("statusText")) {
         result.statusText = message;
-        result.responseText = result.hasOwnProperty("data") ? result.data.markingLog.join(" ") : "no error log associated with this marking error";
+        result.responseText = result.hasOwnProperty("data") ? "\n"+result.data.markingLog.join(" ") : "no error log associated with this marking error";
         //result.statusText = message;
         //console.log(result.data.markingLog.join(" "));
         //result.responseText = result.data.markingLog.join(" ");

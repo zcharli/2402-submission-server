@@ -1,6 +1,7 @@
 import Ember from "ember";
+import SideBarGenerator from '../../../mixins/assignment-list-generator';
 
-export default Ember.Route.extend({
+export default Ember.Route.extend(SideBarGenerator, {
   // activate: function() {},
   // deactivate: function() {},
   // setupController: function(controller, model) {},
@@ -8,7 +9,17 @@ export default Ember.Route.extend({
   secretKey: null,
   // activate: function() {},
   // deactivate: function() {},
-  // setupController: function(controller, model) {},
+  setupController: function(controller, model) {
+    this._super(controller, model);
+    var localStorage = this.get("local-storage"),
+      deadlines = localStorage.get("deadlines");
+    if (deadlines && model.assignmentRanks) {
+      var assignmentObjects = this.get("generateAssignmentObjectArray").call(this, deadlines, model.assignmentRanks);
+      controller.set("assignmentObjectArray", assignmentObjects);
+      controller.set("assignmentRankingObjects", model.assignmentRanks);
+      controller.set("storage", localStorage);
+    }
+  },
   // renderTemplate: function() {},
   // beforeModel: function() {
   //   var cookie = this.get("cookie");
@@ -23,6 +34,9 @@ export default Ember.Route.extend({
   // afterModel: function() {},
 
   model: function() {
-      return ;
+    var assignmentRequestCall = this.get('rest-api').getHost() + "/ranking?secretKey=" + this.get('local-storage').get("currentUser").secretKey;
+    return Ember.RSVP.hash({
+      assignmentRanks: Ember.$.get(assignmentRequestCall)
+    });
   }
 });

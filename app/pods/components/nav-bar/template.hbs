@@ -22,8 +22,10 @@ assignment</i>{{/link-to}}</li>
 grade</i>{{/link-to}}</li>
         
 
-        {{#each assignment in assignmentObjectArray}}
+        {{#each assignmentObjectArray as |assignment|}}
           <li>{{#link-to 'submission.assignment' assignment.route class="hide-on-large-only" }}{{assignment.title}}{{/link-to}}</li>
+        {{else}}
+          <li>No assignments</li>
         {{/each}}
 
         {{!-- <li>{{#link-to 'submission.assignment' 1 class="hide-on-large-only "}}Assignment 1{{/link-to}}</li>

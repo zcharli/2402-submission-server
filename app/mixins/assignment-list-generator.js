@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Mixin.create({
-  generateAssignmentObjectArray: function(assignObjects) {
+  generateAssignmentObjectArray: function(assignObjects, optionalObjectAttributes) {
     var assignObjectsArray = [];
     for(var key in assignObjects) {
       if(assignObjects.hasOwnProperty(key)) {
@@ -11,6 +11,10 @@ export default Ember.Mixin.create({
           id: key,
           title: currAssignment.title
         }
+        if(optionalObjectAttributes) {
+          Object.assign(assignment, optionalObjectAttributes[key]);
+        }
+
         assignObjectsArray.push(assignment);
       }
     }

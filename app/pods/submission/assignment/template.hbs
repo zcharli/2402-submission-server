@@ -13,7 +13,7 @@
   </div>
   <div class="row">
     <div class="col s12">
-      Upload your assignment.zip file here.
+      Upload your {{displayAssignmentZipFileName}} file here.
     </div>
   </div>
   <div class="row">
@@ -25,7 +25,8 @@
           uploadCallback="uploadCompleted" 
           uploadProgressCallback="uploadProgressChanged"
           uploadStartedCallback="markingStarted"
-          uploadError="errorDuringUpload"}}
+          uploadError="errorDuringUpload"
+          expectedZipFileName=displayAssignmentZipFileName}}
         </form>
     </div>
   </div>
@@ -38,10 +39,27 @@
     </div>
   </div>
 
+  <div class="row" style={{assignmentHasBeenMarked}}>
+    <div class="row">
+      <div class="row">
+        <div class="col l7 m7 s12">
+          <div id="grade">{{displayMarkingGrade}}</div>
+        </div>
+        <div class="col l5 m5 s12">
+          <div class='send-results'>
+
+            {{spinner-button action="sendResultsToStudentEmail" text="Send Results" loadingSubject=enableEmailPrepareSpinner}}
+            {{!-- <button class="btn waves-effect waves-light" {{action 'sendResultsToStudentEmail'}}>Send Result<i class="material-icons right">email</i></button> --}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="results row">
     <div class="row">
       <div class="error-result col s12">
-        <span class="error-text">{{displayMarkingError}}</span>
+        <span class="error-text plain-initial" style="white-space: pre-line; font-size:initial">{{displayMarkingError}} </span>
         <span class="error-text">{{displayUploadError}}</span>
       </div>
     </div>
@@ -72,25 +90,10 @@
       </div>
     </div>
 
-    <div class="row" style={{assignmentHasBeenMarked}}>
-      <div class="row">
-        <div class="row">
-          <div class="col l7 m7 s12">
-            <div id="grade">{{displayMarkingGrade}}</div>
-          </div>
-          <div class="col l5 m5 s12">
-            <div class='send-results'>
 
-              {{spinner-button action="sendResultsToStudentEmail" text="Send Results" loadingSubject=enableEmailPrepareSpinner}}
-              {{!-- <button class="btn waves-effect waves-light" {{action 'sendResultsToStudentEmail'}}>Send Result<i class="material-icons right">email</i></button> --}}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
 
         <div class="col s12">
-            <span style="white-space: pre-line; font-size:initial">{{displayMarkingResult}}</span>
+            <span class="plain-initial">{{displayMarkingResult}}</span>
         </div>
       </div>
 

@@ -43,3 +43,8 @@ input[type="file"]::-webkit-file-upload-button:hover {
   background-color: #2bbbad;
   box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
 }
+
+.plain-initial {
+  white-space: pre-line; 
+  font-size:initial;
+}
