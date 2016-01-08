@@ -12,11 +12,19 @@ export default Ember.Route.extend(SideBarGenerator, {
   setupController: function(controller, model) {
     this._super(controller, model);
     var localStorage = this.get("local-storage"),
-      deadlines = localStorage.get("deadlines");
+      deadlines = localStorage.get("deadlines"),
+      assignmentObjects = {};
     if (deadlines && model.assignmentRanks) {
-      var assignmentObjects = this.get("generateAssignmentObjectArray").call(this, deadlines, model.assignmentRanks);
+      var serverResponse = model.assignmentRanks;
+      if (serverResponse.hasOwnProperty("data")) {
+        if (serverResponse.responseType === "error") {
+          Materialize.toast("<div style='color:red'><i class='material-icons left'>error_outline</i>Could not fetch ranks at this moment</div>", 3000);
+        } else {
+          assignmentObjects = this.get("generateAssignmentObjectArray").call(this, deadlines, serverResponse);
+        }
+      }
       controller.set("assignmentObjectArray", assignmentObjects);
-      controller.set("assignmentRankingObjects", model.assignmentRanks);
+      controller.set("assignmentRankingObjects", serverResponse);
       controller.set("storage", localStorage);
     }
   },
