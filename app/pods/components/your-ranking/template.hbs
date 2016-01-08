@@ -3,9 +3,15 @@
     <li>
       <div class="collapsible-header"><i class="material-icons">assignment_ind</i>{{assignment.title}}</div>
       <div class="collapsible-body">
-        {{your-ranking.rank-trophy ranked=assignment.rank
-                                   totalStudentsInRanking=assignment.totalNumber
-                                   }}
+        {{#if assignment.rank}}
+          {{your-ranking.rank-trophy ranked=assignment.rank
+                                     totalStudentsInRanking=assignment.totalNumber
+                                     }}
+        {{else}}
+          <div class="not-ready">
+            <i class="material-icons not-ready-icon">new_releases</i> Assignment rankings are not ready yet.
+          </div> 
+        {{/if}}
       </div>
     </li>
 

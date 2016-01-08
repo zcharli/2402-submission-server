@@ -1,1 +1,10 @@
-@import "./rank-trophy/styles"
+@import "./rank-trophy/styles";
+
+.not-ready {
+  padding:20px;
+}
+
+.not-ready-icon {
+  position:relative;
+  top:6px;
+}
