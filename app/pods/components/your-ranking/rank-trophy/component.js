@@ -16,7 +16,6 @@ export default Ember.Component.extend({
 
   init:function(){
     this._super();
-    console.log("HI");
     var currentRanking = this.get('ranked'),
         totalStudentsInAssignment = this.get('totalStudentsInRanking'),
         trophyImage = "",

@@ -12,7 +12,6 @@ export default Ember.Component.extend(SideBarGenerator,{
     if (deadlines) {
       this.set("assignmentObjectArray", this.get("generateAssignmentObjectArray").call(this, deadlines));
     }
-    console.log(this.get("displayAssignmentObjectArray"));
   }.observes("displayAssignmentObjectArray"),
 
   didInsertElement: function() {
