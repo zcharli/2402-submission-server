@@ -20,11 +20,11 @@ export default Ember.Route.extend(SideBarGenerator, {
         if (serverResponse.responseType === "error") {
           Materialize.toast("<div style='color:red'><i class='material-icons left'>error_outline</i>Could not fetch ranks at this moment</div>", 3000);
         } else {
-          assignmentObjects = this.get("generateAssignmentObjectArray").call(this, deadlines, serverResponse);
+          assignmentObjects = this.get("generateAssignmentObjectArray").call(this, deadlines, serverResponse.data);
         }
       }
       controller.set("assignmentObjectArray", assignmentObjects);
-      controller.set("assignmentRankingObjects", serverResponse);
+      controller.set("assignmentRankingObjects", serverResponse.data);
       controller.set("storage", localStorage);
     }
   },
