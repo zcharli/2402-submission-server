@@ -10,7 +10,7 @@ export default Ember.Mixin.create({
           route: currAssignment.routeParam,
           id: key,
           title: currAssignment.title
-        }
+        };
         if(optionalObjectAttributes) {
           Object.assign(assignment, optionalObjectAttributes[key]);
         }

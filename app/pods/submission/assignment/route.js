@@ -51,9 +51,17 @@ export default Ember.Route.extend({
       }
       if (deadlines) {
         var deadLineDate = new Date(deadlines[assignmentKey].deadline);
+        deadLineDate.setMinutes(deadLineDate.getMinutes() - 5);
+
         if (deadLineDate) {
           if (today > deadLineDate) {
-            controller.set("pastDeadline", true);
+            var graceDate = deadLineDate;
+            graceDate.setMinutes(deadLineDate.getMinutes() + 5);
+            if (graceDate > today) {
+              controller.get("pastDeadlineWithGrace", true);
+            } else {
+              controller.set("pastDeadline", true);
+            }
           } else {
             controller.set("pastDeadline", false);
           }
